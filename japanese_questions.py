@@ -5,7 +5,6 @@ author: Parker J Swierzewski
 language: python3
 desc: This program contains the questions that japanese_quiz.py will utilize.
 """
-import subprocess
 import random   # Used to randomly shuffle question.
 
 class Question:
@@ -27,11 +26,51 @@ class Question:
         self.alternateAnswers = alternateAnswers
         self.kanji = kanji
 
+    def correct(self, answer, kanjiQuiz):
+        """
+        A pointless function to tell the user
+        that they got the answer correct.
+
+        :param self: The question object.
+        :param answer: The answer the user submitted.
+        :param kanjiQuiz: Whether or not the Kanji Quiz is active.
+        :return: None
+        """
+        print("Correct! :)")
+
+        # There is no need to display the Kanji if the Kanji Quiz is active.
+        if not kanjiQuiz:
+            if (isHiragana(answer) or isKatakana(answer)) and (self.kanji is not None):
+                print("The Kanji (漢字) for this word is {}".format(self.kanji))
+
+    def incorrect(self, kanjiQuiz):
+        """
+        A pointless function to tell the user
+        that they got the answer incorrect.
+
+        :param self: The question object.
+        :param kanjiQuiz: Whether or not the Kanji Quiz is active.
+        :return: None
+        """
+        print("Incorrect! :/")
+        print("The correct answer was {}".format(self.correctAnswer))
+        
+        if self.alternateAnswers is not None:
+            if type(self.alternateAnswers) == list:
+                print("{} were also accepted answers!".format(self.alternateAnswers))
+            else:
+                print("{} was also an accepted answers!".format(self.alternateAnswers))
+        
+        if not kanjiQuiz:
+            if self.kanji is not None:
+                print("{} was the accepted Kanji answer!".format(self.kanji))
+
     def isAlternate(self, response):
         """
         This function is used to determine whether the user entered the
         alternate answer.
 
+        :param self: The question object.
         :param response: The user's response.
         :return: Boolean Flag (True = Correct)
         """
@@ -44,45 +83,13 @@ class Question:
             return True
         return False
 
-    def correct(self, answer, kanjiQuiz):
-        """
-        A pointless function to tell the user
-        that they got the answer correct.
-
-        :param self: The question object.
-        :param kanjiQuiz: Whether or not the Kanji Quiz is active.
-        :return: None
-        """
-        print("Correct! :)")
-
-        # There is no need to display the Kanji if the Kanji Quiz is active.
-        if not kanjiQuiz:
-            if (isHiragana(answer) or isKatakana(answer)) and (self.kanji is not None):
-                print("The Kanji (漢字) for this word is {}".format(self.kanji))
-
-    def incorrect(self):
-        """
-        A pointless function to tell the user
-        that they got the answer incorrect.
-
-        :param self: The question object.
-        :return: None
-        """
-        print("Incorrect! :/")
-        print("The correct answer was {}".format(self.correctAnswer))
-        
-        if self.alternateAnswers is not None:
-            if type(self.alternateAnswers) == list:
-                print("{} were also accepted answers!".format(self.alternateAnswers))
-            else:
-                print("{} was also an accepted answers!".format(self.alternateAnswers))
-
     def reverseQuestion(self, quizType):
         """
         This function is used to reverse the question and the answer
         so that the quiz is always changing and keeping the user
         on the spot.
 
+        :param self: The question object.
         :param quizType: Used to correctly display a prompt.
         :return: None
         """
@@ -248,7 +255,7 @@ def hiraganaQuiz():
             element.correct(answer, False)
             score += 1
         else:
-            element.incorrect()
+            element.incorrect(False)
 
     calculateScore(score, max_score)
 
@@ -293,7 +300,7 @@ def katakanaQuiz():
             element.correct(answer, False)
             score += 1
         else:
-            element.incorrect()
+            element.incorrect(False)
 
     calculateScore(score, max_score)
 
@@ -334,7 +341,7 @@ def vocabQuizPrompt(quizList):
                 element.correct(answer, False)
                 score += 1
             else:
-                element.incorrect()
+                element.incorrect(False)
         else:
             element.reverseQuestion("Vocab")
 
@@ -346,7 +353,7 @@ def vocabQuizPrompt(quizList):
                 element.correct(answer, False)
                 score += 1
             else:
-                element.incorrect()
+                element.incorrect(False)
         
     # Calculates the users final score.
     calculateScore(score, max_score)
