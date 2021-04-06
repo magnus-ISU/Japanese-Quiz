@@ -40,7 +40,7 @@ Although a Japanese keyboard isn't required, it is strongly recommended!
 
 ## Set Up
 If you're having trouble seeing Japanese Hiragana, Katakana, and/or Kanji characters,
-I find that *MS Mincho* works the best.
+I find that the *MS Mincho* font works the best.
 
 **Windows 10**
 1. Open up the terminal.
