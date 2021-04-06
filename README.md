@@ -6,6 +6,7 @@ A simple Python script that'll ask you Japanese related questions
  - [Notice](#notice)
  - [Description](#description)
  - [Installation](#installation)
+ - [Set Up](#set-up)
 
 ## Notice
 This script only contains Japanese words, phrases, and Kanji, that I've learned and/or
@@ -37,3 +38,13 @@ You're good to go :)
 Make sure whatever terminal you're using is able to print Hiragana, Katakana, and Kanji!
 Although a Japanese keyboard isn't required, it is strongly recommended!
 
+## Set Up
+If you're having trouble seeing Japanese Hiragana, Katakana, and/or Kanji characters,
+I find that *MS Mincho* works the best.
+
+**Windows 10**
+1. Open up the terminal.
+2. Right-click the top of the terminal.
+3. Click on "Properties"
+4. Click on "Fonts" and then scroll through the fonts until you find MS Mincho (it's near the bottom).
+5. Click "Ok" and you should now be able to see Hiragana, Katakana, and Kanji characters!
