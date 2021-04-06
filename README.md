@@ -51,4 +51,4 @@ I find that the *MS Mincho* font works the best.
 5. Click "Ok" and you should now be able to see Hiragana, Katakana, and Kanji characters!
 
 **Mac OS**
-You should have no problem viewing characters.
+- You should have no problem viewing characters.
