@@ -304,6 +304,53 @@ def startHomeworkVocabQuiz():
                      Question("Toxic Mouth", "どくが", ["dokuga", ""]), Question("Elbow", "うで", ["ude", ""]), Question("Forehead", "おでこ", ["odeko", ""]),
                      Question("Something Continues", "つずく", ["tsuzuku", ""]) ]
 
+def vocabQuizPrompt(quizList):
+    """
+    This function will print the prompt for each vocab quiz.
+
+    :param quizList: The vocab quiz list (chapter).
+    :return: None
+    """
+    flag = hasJapaneseKeyboard()
+
+    input("\nThe quiz is about to begin! Press any key to start...")
+    score = 0
+    max_score = len(quizList)
+
+    random.shuffle(quizList)
+    for element in quizList:
+        choice = 0
+        if flag:
+            choice = random.randint(0, 1)
+
+        if choice == 0:
+            print("\n" + element.question)
+            answer = input("What is the Japanese for the word above?: ")
+
+            if (answer.lower() == element.correctAnswer) or element.isAlternate(answer):
+                element.correct(answer)
+                score += 1
+            else:
+                element.incorrect()
+        else:
+            element.reverseQuestion("Vocab")
+
+            print("\n" + element.question)
+            answer = input("What is the English for the word above?: ")
+
+            # Some words have multiple meanings in English.
+            # The next few lines below account for that.
+            c = element.correctAnswer.lower().split("/")
+
+            if (answer.lower() in c):
+                element.correct(answer)
+                score += 1
+            else:
+                element.incorrect()
+        
+    # Calculates the users final score.
+    calculateScore(score, max_score)
+
 def vocabQuizMLJP1():
     """
     This function will start a quiz based on the chapater vocabulary for
@@ -312,6 +359,34 @@ def vocabQuizMLJP1():
 
     :return: None
     """
+    # Chapter 1 Vocab. Located on Genki page 38-39.
+    chapter1Vocab = [ Question("College/University", "だいがく", ["daigaku", "だいがく"]), Question("High School", "こうこう", ["koukou", "高校生"]), 
+                     Question("Student", "がくせい", ["gakusei", "学生"]), Question("College Student", "だいがくせい", ["daigakusei", "大学生"]), 
+                     Question("International Student", "りゅうがくせい", ["ryuugakusei", "留学生"]), Question("Teacher/Professor", "せんせい", ["sensei", "先生"]), 
+                     Question("First Year Student", "いちねんせい", ["ichinensei", "一年生"]), Question("Major", "せんこう", ["senkou", "専攻"]), Question("I", "わたし", ["watashi", "私"]), 
+                     Question("Friend", "ともだち", ["tomodachi", "友達"]), Question("Mr/Ms", "さん", "san"), Question("Japanese People", "にほんじん", ["nihonjin", "日本人"]),
+                     Question("Now", "いま", ["ima", "今"]), Question("AM", "ごぜん", ["gozen", "午前"]), Question("PM", "ごご", ["gogo", "午後"]), Question("O'Clock", "じ", ["ji", "時"]),
+                     Question("One O'Clock", "いちじ", ["ichiji", "一時"]), Question("Half", "はん", ["han", "半"]), Question("2:30", "にじはん", ["nijihan", "二時半"]), 
+                     Question("Japan", "にほん", ["nihon", "日本"]),  Question("America/USA", "アメリカ", "amerika"),  Question("Language", "ご", ["go", "語"]),  
+                     Question("Japanese Language", "にほんご", ["nihongo", "日本語"]),  Question("Years Old", "さい", ["sai", "歳"]),  Question("Telephone/Phone", "でんわ", ["denwa", "電話"]),  
+                     Question("Number", "ばんごう", ["bangou", "番号"]),  Question("Name", "なまえ", ["namae", "名前"]),  Question("What", "なん", ["nan", "nani", "なに", "何"]),
+                     Question("Um", "あの", "ano"), Question("Yes", "はい", "hai"), Question("That's Right", "そうです", "soudesu"), Question("I See/Is That So", "そうですか", "soudesuka"),
+                     Question("Britian", "イギリス", "igirisu"), Question("Australia", "オーストラリア", "oosutoraria"), Question("Korea", "かんこく", ["kankoku", "韓国"]),
+                     Question("China", "ちゅうごく", ["chuugoku", "中国"]), Question("India", "インド", "indo"), Question("Egypt", "エジプト", "ejiputo"), 
+                     Question("Philippines", "フィリピン", "firipin"), Question("Asian Studies", "アジアけんきゅう", ["ajiakenkyuu", "アジア研究"]), 
+                     Question("Economics", "けいざい", ["keizai", "経済"]), Question("Engineering", "こうがく", "kougaku"), 
+                     Question("International Relations", "こくさいかんけい", ["kakusaikankei", "国際関係"]), Question("Computer", "コンピュータ", "konpyuuta"), 
+                     Question("Politics", "せいじ", "政治"), Question("Biology", "せいぶつがく", ["seibutsugaku", "生物学"]), Question("Business", "ビジネス", "bijinesu"),
+                     Question("Literature", "ぶんがく", ["bungaku", "文学"]), Question("History", "れきし", ["rekishi", "歴史"]), Question("Doctor", "いしゃ", ["isha", "医者"]), 
+                     Question("Office Worker", "かいしゃいん", ["kaishain", "会社員"]), Question("Nurse", "かんごし", ["kangoshi", "看護師"]), 
+                     Question("High School Student", "こうこうせい", ["koukousei", "高校生"]), Question("Housewife", "しゅふ", ["shufu", "主婦"]), 
+                     Question("Graduate Student", "だいがくいんせい", ["daigakuinsee", "大学院生"]), Question("Lawyer", "べんごし", ["bengoshi", "弁護士"]), 
+                     Question("Mother", "おかあさん", ["okaasan", "お母さん"]), Question("Father", "お父さん", ["otousan", "お父さん"]), 
+                     Question("Older Sister", "おねえさん", ["oneesan", "お姉さん"]), Question("Older Brother", "おにいさん", ["oniisan", "お兄さん"]), 
+                     Question("Younger Sister", "いもうと", ["imouto", "妹"]), Question("Younger Brother", "おとうと", ["otouto", "弟"]), ]
+
+    # Chapter 2 Vocab. Located on Genki page 58-69.
+    chapter2Vocab = []
 
     # Chapter 3 Vocab. Located on Genki page 84-85.
     chapter3Vocab = [ Question("Movie", "えいが", ["eiga", "映画"]), Question("Music", "おんがく", ["ongaku", "音楽"]), Question("Magazine", "ざっし", ["zasshi", "雑誌"]),
@@ -365,88 +440,13 @@ def vocabQuizMLJP1():
     vocabType = input("\n[+] What quiz would you like to take?: ")
 
     if vocabType == "1":
-        pass
+        vocabQuizPrompt(chapter1Vocab)
     elif vocabType == "2":
         pass
     elif vocabType == "3":
-        flag = hasJapaneseKeyboard()
-
-        input("\nThe quiz is about to begin! Press any key to start...")
-        score = 0
-        max_score = len(chapter3Vocab)
-
-        random.shuffle(chapter3Vocab)
-        for element in chapter3Vocab:
-            choice = 0
-            if flag:
-                choice = random.randint(0, 1)
-
-            if choice == 0:
-                print("\n" + element.question)
-                answer = input("What is the Japanese for the word above?: ")
-
-                if (answer.lower() == element.correctAnswer) or element.isAlternate(answer):
-                    element.correct(answer)
-                    score += 1
-                else:
-                    element.incorrect()
-            else:
-                element.reverseQuestion("Vocab")
-
-                print("\n" + element.question)
-                answer = input("What is the English for the word above?: ")
-
-                # Some words have multiple meanings in English.
-                # The next few lines below account for that.
-                c = element.correctAnswer.lower().split("/")
-
-                if (answer.lower() in c):
-                    element.correct(answer)
-                    score += 1
-                else:
-                    element.incorrect()
-        
-        # Calculates the users final score.
-        calculateScore(score, max_score)
+        vocabQuizPrompt(chapter3Vocab)
     elif vocabType == "4":
-        flag = hasJapaneseKeyboard()
-
-        input("\nThe quiz is about to begin! Press any key to start...")
-        score = 0
-        max_score = len(chapter4Vocab)
-
-        random.shuffle(chapter4Vocab)
-        for element in chapter4Vocab:
-            choice = 0
-            if flag:
-                choice = random.randint(0, 1)
-
-            if choice == 0:
-                print("\n" + element.question)
-                answer = input("What is the Japanese for the word above?: ")
-
-                if (answer.lower() == element.correctAnswer) or element.isAlternate(answer):
-                    element.correct(answer)
-                    score += 1
-                else:
-                    element.incorrect()
-            else:
-                element.reverseQuestion("Vocab")
-
-                print("\n" + element.question)
-                answer = input("What is the English for the word above?: ")
-
-                # Some words have multiple meanings in English.
-                # The next few lines below account for that.
-                c = element.correctAnswer.lower().split("/")
-                if (answer.lower() in c):
-                    element.correct(answer)
-                    score += 1
-                else:
-                    element.incorrect()
-        
-        # Calculates the users final score.
-        calculateScore(score, max_score)
+        vocabQuizPrompt(chapter4Vocab)
 
 def hardVocabQuiz():
     """
