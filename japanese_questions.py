@@ -5,13 +5,14 @@ author: Parker J Swierzewski
 language: python3
 desc: This program contains the questions that japanese_quiz.py will utilize.
 """
+import subprocess
 import random   # Used to randomly shuffle question.
 
 class Question:
     """
     Used to define questions.
     """
-    def __init__(self, question, correctAnswer, alternateAnswers, kanji=None):
+    def __init__(self, question, correctAnswer, alternateAnswers=None, kanji=None):
         """
         This function is used to create a Question object.
 
@@ -39,21 +40,25 @@ class Question:
                 return True
             elif type(self.alternateAnswers) == str and response.lower() == self.alternateAnswers:
                 return True
+        if self.kanji is not None and response == self.kanji:
+            return True
         return False
 
-    def correct(self, answer):
+    def correct(self, answer, kanjiQuiz):
         """
         A pointless function to tell the user
         that they got the answer correct.
 
         :param self: The question object.
-        :param answer: The answer the user submitted.
+        :param kanjiQuiz: Whether or not the Kanji Quiz is active.
         :return: None
         """
         print("Correct! :)")
 
-        if isHiragana(self.question) or isKatakana(self.question) and self.kanji is not None:
-            print("The Kanji (漢字) for this word is {}".format(self.kanji))
+        # There is no need to display the Kanji if the Kanji Quiz is active.
+        if not kanjiQuiz:
+            if (isHiragana(answer) or isKatakana(answer)) and (self.kanji is not None):
+                print("The Kanji (漢字) for this word is {}".format(self.kanji))
 
     def incorrect(self):
         """
@@ -89,8 +94,8 @@ class Question:
             self.correctAnswer = q
         elif quizType == "Vocab":
             # This if block will check if there is a Kanji and display it with the prompt.
-            if type(self.alternateAnswers) == list and len(self.alternateAnswers) > 1:
-                a += "(" + self.alternateAnswers[len(self.alternateAnswers)-1] + ")"
+            if self.kanji is not None:
+                a += " (" + self.kanji + ")"
             self.question = a
             self.correctAnswer = q
             self.alternateAnswers = None
@@ -180,11 +185,15 @@ def hasJapaneseKeyboard():
     
     :return: Boolean Flag (True = Has Japanese Keyboard)
     """
-    flag = input("Do you have a Japanese keyboard installed? (y/n): ")
+    while True:
+        flag = input("Do you have a Japanese keyboard installed? (y/n): ")
+        
+        if flag.lower() == "y" or flag.lower() == "n":
+            break
 
     if flag.lower() == "y":
         flag = True
-        print("[!] You will be asked to type in Japanese Writing Script(s) and Romaji!")
+        print("[!] You will be asked to type in Japanese Writing Script(s)!")
         wait = input("[!] Please get your Japanese keyboard setup and enter `y` when ready: ")
         
         while wait.lower() != "y":
@@ -195,9 +204,6 @@ def hasJapaneseKeyboard():
         flag = False
         print("[!] You will only be asked to type Romaji!")
         print("[!] Set up a Japanese keyboard for the full experience! :)")
-    else:
-        print("[!] You must answer yes (y) or no (n)! Rerun to try again.")
-        exit(1)
 
     return flag
 
@@ -210,24 +216,24 @@ def hiraganaQuiz():
     :return: None
     """
     print("Hiragana Quiz\n")
-    hasJapaneseKeyboard
+    hasJapaneseKeyboard()
 
-    hiragana = [ Question("あ", "a", None), Question("い", "i", None), Question("う", "u", None), Question("え", "e", None), Question("お", "o", None),
-                    Question("か", "ka", None), Question("き", "ki", None), Question("く", "ku", None), Question("け", "ke", None), Question("こ", "ko", None),
-                    Question("が", "ga", None), Question("ぎ", "gi", None), Question("ぐ", "gu", None), Question("げ", "ge", None), Question("ご", "go", None),
-                    Question("さ", "sa", None), Question("し", "shi", None), Question("す", "su", None), Question("せ", "se", None), Question("そ", "so", None),
-                    Question("ざ", "za", None), Question("じ", "ji", None), Question("ず", "zu", None), Question("ぜ", "ze", None), Question("ぞ", "zo", None),
-                    Question("た", "ta", None), Question("ち", "chi", None), Question("つ", "tsu", None), Question("て", "te", None), Question("と", "to", None),
-                    Question("だ", "da", None), Question("ぢ", "ji", None), Question("づ", "zu", None), Question("で", "de", None), Question("ど", "do", None),
-                    Question("な", "na", None), Question("に", "ni", None), Question("ぬ", "nu", None), Question("ね", "ne", None), Question("の", "no", None),
-                    Question("は", "ha", None), Question("ひ", "hi", None), Question("ふ", "fu", "hu"), Question("へ", "he", None), Question("ほ", "ho", None),
-                    Question("ば", "ba", None), Question("び", "bi", None), Question("ぶ", "bu", None), Question("べ", "be", None), Question("ぼ", "bo", None),
-                    Question("ぱ", "pa", None), Question("ぴ", "pi", None), Question("ぷ", "pu", None), Question("ぺ", "pe", None), Question("ぽ", "po", None),
-                    Question("ま", "ma", None), Question("み", "mi", None), Question("む", "mu", None), Question("め", "me", None), Question("も", "mo", None),
-                    Question("や", "ya", None), Question("ゆ", "yu", None), Question("よ", "yo", None), 
-                    Question("ら", "ra", None), Question("り", "ri", None), Question("る", "ru", None), Question("れ", "re", None), Question("ろ", "ro", None),
-                    Question("わ", "wa", None), Question("を", "wo", "o"), 
-                    Question("ん", "n", None) ]
+    hiragana = [ Question("あ", "a"), Question("い", "i"), Question("う", "u"), Question("え", "e"), Question("お", "o"),
+                    Question("か", "ka"), Question("き", "ki"), Question("く", "ku"), Question("け", "ke"), Question("こ", "ko"),
+                    Question("が", "ga"), Question("ぎ", "gi"), Question("ぐ", "gu"), Question("げ", "ge"), Question("ご", "go"),
+                    Question("さ", "sa"), Question("し", "shi"), Question("す", "su"), Question("せ", "se"), Question("そ", "so"),
+                    Question("ざ", "za"), Question("じ", "ji"), Question("ず", "zu"), Question("ぜ", "ze"), Question("ぞ", "zo"),
+                    Question("た", "ta"), Question("ち", "chi"), Question("つ", "tsu"), Question("て", "te"), Question("と", "to"),
+                    Question("だ", "da"), Question("ぢ", "ji"), Question("づ", "zu"), Question("で", "de"), Question("ど", "do"),
+                    Question("な", "na"), Question("に", "ni"), Question("ぬ", "nu"), Question("ね", "ne"), Question("の", "no"),
+                    Question("は", "ha"), Question("ひ", "hi"), Question("ふ", "fu", "hu"), Question("へ", "he"), Question("ほ", "ho"),
+                    Question("ば", "ba"), Question("び", "bi"), Question("ぶ", "bu"), Question("べ", "be"), Question("ぼ", "bo"),
+                    Question("ぱ", "pa"), Question("ぴ", "pi"), Question("ぷ", "pu"), Question("ぺ", "pe"), Question("ぽ", "po"),
+                    Question("ま", "ma"), Question("み", "mi"), Question("む", "mu"), Question("め", "me"), Question("も", "mo"),
+                    Question("や", "ya"), Question("ゆ", "yu"), Question("よ", "yo"), 
+                    Question("ら", "ra"), Question("り", "ri"), Question("る", "ru"), Question("れ", "re"), Question("ろ", "ro"),
+                    Question("わ", "wa"), Question("を", "wo"), 
+                    Question("ん", "n") ]
 
     input("\nThe quiz is about to begin! Press any key to start...")
     score = 0
@@ -239,7 +245,7 @@ def hiraganaQuiz():
         answer = input("What character is this?: ")
 
         if (answer.lower() == element.correctAnswer.lower()) or element.isAlternate(answer):
-            element.correct()
+            element.correct(answer, False)
             score += 1
         else:
             element.incorrect()
@@ -257,22 +263,22 @@ def katakanaQuiz():
     print("Katakana Quiz (カタカナ)\n")
     hasJapaneseKeyboard()
 
-    katakana = [ Question("ア", "a", None), Question("イ", "i", None), Question("ウ", "u", None), Question("エ", "e", None), Question("オ", "o", None),
-                    Question("カ", "ka", None), Question("キ", "ki", None), Question("ク", "ku", None), Question("ケ", "ke", None), Question("コ", "ko", None),
-                    Question("ガ", "ga", None), Question("ギ", "gi", None), Question("グ", "gu", None), Question("ゲ", "ge", None), Question("ゴ", "go", None),
-                    Question("サ", "sa", None), Question("シ", "shi", None), Question("ス", "su", None), Question("セ", "se", None), Question("ソ", "so", None),
-                    Question("ザ", "za", None), Question("ジ", "ji", None), Question("ズ", "zu", None), Question("ゼ", "ze", None), Question("ゾ", "zo", None),
-                    Question("タ", "ta", None), Question("チ", "chi", None), Question("ツ", "tsu", None), Question("テ", "te", None), Question("ト", "to", None),
-                    Question("ダ", "da", None), Question("ヂ", "ji", None), Question("ヅ", "zu", None), Question("デ", "de", None), Question("ド", "do", None),
-                    Question("ナ", "na", None), Question("ニ", "ni", None), Question("ヌ", "nu", None), Question("ネ", "ne", None), Question("ノ", "no", None),
-                    Question("ハ", "ha", None), Question("ヒ", "hi", None), Question("フ", "fu", "hu"), Question("ヘ", "he", None), Question("ホ", "ho", None),
-                    Question("バ", "ba", None), Question("ビ", "bi", None), Question("ブ", "bu", None), Question("べ", "be", None), Question("ボ", "bo", None),
-                    Question("パ", "pa", None), Question("ピ", "pi", None), Question("プ", "pu", None), Question("ぺ", "pe", None), Question("ポ", "po", None),
-                    Question("マ", "ma", None), Question("ミ", "mi", None), Question("ム", "mu", None), Question("メ", "me", None), Question("モ", "mo", None),
-                    Question("ヤ", "ya", None), Question("ユ", "yu", None), Question("ヨ", "yo", None), 
-                    Question("ラ", "ra", None), Question("リ", "ri", None), Question("ル", "ru", None), Question("レ", "re", None), Question("ロ", "ro", None),
-                    Question("ワ", "wa", None), Question("ヲ", "wo", "o"), 
-                    Question("ン", "n", None) ]
+    katakana = [ Question("ア", "a"), Question("イ", "i"), Question("ウ", "u"), Question("エ", "e"), Question("オ", "o"),
+                    Question("カ", "ka"), Question("キ", "ki"), Question("ク", "ku"), Question("ケ", "ke"), Question("コ", "ko"),
+                    Question("ガ", "ga"), Question("ギ", "gi"), Question("グ", "gu"), Question("ゲ", "ge"), Question("ゴ", "go"),
+                    Question("サ", "sa"), Question("シ", "shi"), Question("ス", "su"), Question("セ", "se"), Question("ソ", "so"),
+                    Question("ザ", "za"), Question("ジ", "ji"), Question("ズ", "zu"), Question("ゼ", "ze"), Question("ゾ", "zo"),
+                    Question("タ", "ta"), Question("チ", "chi"), Question("ツ", "tsu"), Question("テ", "te"), Question("ト", "to"),
+                    Question("ダ", "da"), Question("ヂ", "ji"), Question("ヅ", "zu"), Question("デ", "de"), Question("ド", "do"),
+                    Question("ナ", "na"), Question("ニ", "ni"), Question("ヌ", "nu"), Question("ネ", "ne"), Question("ノ", "no"),
+                    Question("ハ", "ha"), Question("ヒ", "hi"), Question("フ", "fu", "hu"), Question("ヘ", "he"), Question("ホ", "ho"),
+                    Question("バ", "ba"), Question("ビ", "bi"), Question("ブ", "bu"), Question("べ", "be"), Question("ボ", "bo"),
+                    Question("パ", "pa"), Question("ピ", "pi"), Question("プ", "pu"), Question("ぺ", "pe"), Question("ポ", "po"),
+                    Question("マ", "ma"), Question("ミ", "mi"), Question("ム", "mu"), Question("メ", "me"), Question("モ", "mo"),
+                    Question("ヤ", "ya"), Question("ユ", "yu"), Question("ヨ", "yo"), 
+                    Question("ラ", "ra"), Question("リ", "ri"), Question("ル", "ru"), Question("レ", "re"), Question("ロ", "ro"),
+                    Question("ワ", "wa"), Question("ヲ", "wo"), 
+                    Question("ン", "n") ]
 
     input("\nThe quiz is about to begin! Press any key to start...")
     score = 0
@@ -284,7 +290,7 @@ def katakanaQuiz():
         answer = input("What character is this?: ")
 
         if (answer.lower() == element.correctAnswer.lower()) or element.isAlternate(answer):
-            element.correct(answer)
+            element.correct(answer, False)
             score += 1
         else:
             element.incorrect()
@@ -325,7 +331,7 @@ def vocabQuizPrompt(quizList):
             answer = input("What is the Japanese for the word above?: ")
 
             if (answer.lower() == element.correctAnswer) or element.isAlternate(answer):
-                element.correct(answer)
+                element.correct(answer, False)
                 score += 1
             else:
                 element.incorrect()
@@ -335,12 +341,9 @@ def vocabQuizPrompt(quizList):
             print("\n" + element.question)
             answer = input("What is the English for the word above?: ")
 
-            # Some words have multiple meanings in English.
-            # The next few lines below account for that.
             c = element.correctAnswer.lower().split("/")
-
             if (answer.lower() in c):
-                element.correct(answer)
+                element.correct(answer, False)
                 score += 1
             else:
                 element.incorrect()
@@ -387,7 +390,7 @@ def vocabQuizMLJP1():
                      Question("This", "この", "kono"), Question("That", "その", "sono"), Question("That Over There", "あの", "ano"), Question("Which", "どの", "dono"), 
                      Question("Here", "ここ", "koko"), Question("There", "そこ", "soko"), Question("Over There", "あそこ", "asoko"), Question("Where", "どこ", "doko"), 
                      Question("Who", "だれ", "dare"), Question("Delicious", "おいしい", "oishii", "美味しい"), Question("Fish", "さかな", "sakana", "魚"), 
-                     Question("Pork Cutlet" "とんかつ", "tonkatsu"), Question("Meat", "にく", "niku", "肉"), Question("Menu", "メニュー", "menyuu"), 
+                     Question("Pork Cutlet" "とんかつ", "tonkatsu"), Question("Meat", "にく", "niku", "肉"), Question("Menu", "メニュー", "menyuu"),
                      Question("Vegetables", "やさい", "ysai", "野菜"), Question("Umbrella", "かさ", "kasa", "傘"), Question("Bag", "かばん", "kaban", "鞄"), 
                      Question("Shoes", "くつ", "kutsu", "靴"), Question("Wallet", "さいふ", "saifu", "財布"), Question("Jeans", "ジーンズ", "jiinsu"), 
                      Question("Bicycle", "じてんしゃ", "jitensha", "自転車"), Question("Newspaper", "しんぶん", "shinbun", "新聞"), Question("Smartphone/Mobile", "スマホ", "sumaho"),
@@ -456,7 +459,7 @@ def vocabQuizMLJP1():
     if vocabType == "1":
         vocabQuizPrompt(chapter1Vocab)
     elif vocabType == "2":
-        pass
+        vocabQuizPrompt(chapter2Vocab)
     elif vocabType == "3":
         vocabQuizPrompt(chapter3Vocab)
     elif vocabType == "4":
