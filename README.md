@@ -32,6 +32,7 @@ As stated above, this script will provide you with a quiz based on the quiz type
 Make sure you have GIT installed on the system!
 ```
 git clone https://github.com/parkerswierzewski/Japanese-Quiz.git
+cd Japanese-Quiz
 python3 japanese_quiz.py
 ```
 You're good to go :)
@@ -48,3 +49,6 @@ I find that the *MS Mincho* font works the best.
 3. Click on "Properties"
 4. Click on "Fonts" and then scroll through the fonts until you find MS Mincho (it's near the bottom).
 5. Click "Ok" and you should now be able to see Hiragana, Katakana, and Kanji characters!
+
+** Mac OS **
+You should have no problem viewing characters.
