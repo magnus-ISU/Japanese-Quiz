@@ -11,7 +11,7 @@ class Question:
     """
     Used to define questions.
     """
-    def __init__(self, question, correctAnswer, alternateAnswers):
+    def __init__(self, question, correctAnswer, alternateAnswers, kanji=None):
         """
         This function is used to create a Question object.
 
@@ -19,10 +19,12 @@ class Question:
         :param question: The question prompt.
         :param correctAnswer: The best, or correct answer. 
         :param alternateAnswers: Other accepted answers.
+        :param kanji: The kanji of the correctAnswer (None if no kanji). 
         """
         self.question = question
         self.correctAnswer = correctAnswer
         self.alternateAnswers = alternateAnswers
+        self.kanji = kanji
 
     def isAlternate(self, response):
         """
@@ -50,9 +52,8 @@ class Question:
         """
         print("Correct! :)")
 
-        if self.alternateAnswers is not None:
-            if type(self.alternateAnswers) == list and len(self.alternateAnswers) > 1 and isHiragana(answer):
-                print("The Kanji (漢字) for this word is {}".format(self.alternateAnswers[len(self.alternateAnswers)-1]))
+        if isHiragana(self.question) or isKatakana(self.question) and self.kanji is not None:
+            print("The Kanji (漢字) for this word is {}".format(self.kanji))
 
     def incorrect(self):
         """
@@ -293,16 +294,12 @@ def katakanaQuiz():
 def startHomeworkVocabQuiz():
     """
     This function will start a quiz based on words/phrases given in the
-    homework. The user will get to choose what chapater they want to be
+    homework. The user will get to choose what chapter they want to be
     quizzed from.
 
     :return: None
     """
-    # This section contains questions from MLJP201 (Beginner Japanese I).
-    beginnerVocab = [ Question("Waterfall", "たき", ["taki", "滝"]), Question("Moon", "つき", ["tsuki", "月"]), Question("Near", "ちかい", ["chikai", ""]), 
-                     Question("Enemy", "てき", ["teki", ""]), Question("Land", "とち", ["tochi", ""]), Question("Important", "だいじ", ["daiji", ""]), 
-                     Question("Toxic Mouth", "どくが", ["dokuga", ""]), Question("Elbow", "うで", ["ude", ""]), Question("Forehead", "おでこ", ["odeko", ""]),
-                     Question("Something Continues", "つずく", ["tsuzuku", ""]) ]
+    pass
 
 def vocabQuizPrompt(quizList):
     """
@@ -360,94 +357,94 @@ def vocabQuizMLJP1():
     :return: None
     """
     # Chapter 1 Vocab. Located on Genki page 38-39.
-    chapter1Vocab = [ Question("College/University", "だいがく", ["daigaku", "だいがく"]), Question("High School", "こうこう", ["koukou", "高校生"]), 
-                     Question("Student", "がくせい", ["gakusei", "学生"]), Question("College Student", "だいがくせい", ["daigakusei", "大学生"]), 
-                     Question("International Student", "りゅうがくせい", ["ryuugakusei", "留学生"]), Question("Teacher/Professor", "せんせい", ["sensei", "先生"]), 
-                     Question("First Year Student", "いちねんせい", ["ichinensei", "一年生"]), Question("Major", "せんこう", ["senkou", "専攻"]), Question("I", "わたし", ["watashi", "私"]), 
-                     Question("Friend", "ともだち", ["tomodachi", "友達"]), Question("Mr/Ms", "さん", "san"), Question("Japanese People", "にほんじん", ["nihonjin", "日本人"]),
-                     Question("Now", "いま", ["ima", "今"]), Question("AM", "ごぜん", ["gozen", "午前"]), Question("PM", "ごご", ["gogo", "午後"]), Question("O'Clock", "じ", ["ji", "時"]),
-                     Question("One O'Clock", "いちじ", ["ichiji", "一時"]), Question("Half", "はん", ["han", "半"]), Question("2:30", "にじはん", ["nijihan", "二時半"]), 
-                     Question("Japan", "にほん", ["nihon", "日本"]),  Question("America/USA", "アメリカ", "amerika"),  Question("Language", "ご", ["go", "語"]),  
-                     Question("Japanese Language", "にほんご", ["nihongo", "日本語"]),  Question("Years Old", "さい", ["sai", "歳"]),  Question("Telephone/Phone", "でんわ", ["denwa", "電話"]),  
-                     Question("Number", "ばんごう", ["bangou", "番号"]),  Question("Name", "なまえ", ["namae", "名前"]),  Question("What", "なん", ["nan", "nani", "なに", "何"]),
+    chapter1Vocab = [ Question("College/University", "だいがく", "daigaku", "大学"), Question("High School", "こうこう", "koukou" "高校生"), 
+                     Question("Student", "がくせい", "gakusei" "学生"), Question("College Student", "だいがくせい", "daigakusei" "大学生"), 
+                     Question("International Student", "りゅうがくせい", "ryuugakusei", "留学生"), Question("Teacher/Professor", "せんせい", "sensei" "先生"), 
+                     Question("First Year Student", "いちねんせい", "ichinensei", "一年生"), Question("Major", "せんこう", "senkou", "専攻"), Question("I", "わたし", "watashi" "私"), 
+                     Question("Friend", "ともだち", "tomodachi" "友達"), Question("Mr/Ms", "さん", "san"), Question("Japanese People", "にほんじん", "nihonjin", "日本人"),
+                     Question("Now", "いま", "ima", "今"), Question("AM", "ごぜん", "gozen", "午前"), Question("PM", "ごご", "gogo", "午後"), Question("O'Clock", "じ", "ji", "時"),
+                     Question("One O'Clock", "いちじ", "ichiji", "一時"), Question("Half", "はん", "han", "半"), Question("2:30", "にじはん", "nijihan", "二時半"), 
+                     Question("Japan", "にほん", "nihon", "日本"), Question("America/USA", "アメリカ", "amerika"), Question("Language", "ご", "go", "語"),  
+                     Question("Japanese Language", "にほんご", "nihongo", "日本語"), Question("Years Old", "さい", "sai", "歳"), Question("Telephone/Phone", "でんわ", "denwa", "電話"),  
+                     Question("Number", "ばんごう", "bangou", "番号"), Question("Name", "なまえ", "namae", "名前"), Question("What", "なん", ["nan", "nani", "なに"], "何"),
                      Question("Um", "あの", "ano"), Question("Yes", "はい", "hai"), Question("That's Right", "そうです", "soudesu"), Question("I See/Is That So", "そうですか", "soudesuka"),
-                     Question("Britian", "イギリス", "igirisu"), Question("Australia", "オーストラリア", "oosutoraria"), Question("Korea", "かんこく", ["kankoku", "韓国"]),
-                     Question("China", "ちゅうごく", ["chuugoku", "中国"]), Question("India", "インド", "indo"), Question("Egypt", "エジプト", "ejiputo"), 
-                     Question("Philippines", "フィリピン", "firipin"), Question("Asian Studies", "アジアけんきゅう", ["ajiakenkyuu", "アジア研究"]), 
-                     Question("Economics", "けいざい", ["keizai", "経済"]), Question("Engineering", "こうがく", "kougaku"), 
-                     Question("International Relations", "こくさいかんけい", ["kakusaikankei", "国際関係"]), Question("Computer", "コンピュータ", "konpyuuta"), 
-                     Question("Politics", "せいじ", "政治"), Question("Biology", "せいぶつがく", ["seibutsugaku", "生物学"]), Question("Business", "ビジネス", "bijinesu"),
-                     Question("Literature", "ぶんがく", ["bungaku", "文学"]), Question("History", "れきし", ["rekishi", "歴史"]), Question("Doctor", "いしゃ", ["isha", "医者"]), 
-                     Question("Office Worker", "かいしゃいん", ["kaishain", "会社員"]), Question("Nurse", "かんごし", ["kangoshi", "看護師"]), 
-                     Question("High School Student", "こうこうせい", ["koukousei", "高校生"]), Question("Housewife", "しゅふ", ["shufu", "主婦"]), 
-                     Question("Graduate Student", "だいがくいんせい", ["daigakuinsee", "大学院生"]), Question("Lawyer", "べんごし", ["bengoshi", "弁護士"]), 
-                     Question("Mother", "おかあさん", ["okaasan", "お母さん"]), Question("Father", "お父さん", ["otousan", "お父さん"]), 
-                     Question("Older Sister", "おねえさん", ["oneesan", "お姉さん"]), Question("Older Brother", "おにいさん", ["oniisan", "お兄さん"]), 
-                     Question("Younger Sister", "いもうと", ["imouto", "妹"]), Question("Younger Brother", "おとうと", ["otouto", "弟"]), ]
+                     Question("Britian", "イギリス", "igirisu"), Question("Australia", "オーストラリア", "oosutoraria"), Question("Korea", "かんこく", "kankoku", "韓国"),
+                     Question("China", "ちゅうごく", "chuugoku", "中国"), Question("India", "インド", "indo"), Question("Egypt", "エジプト", "ejiputo"), 
+                     Question("Philippines", "フィリピン", "firipin"), Question("Asian Studies", "アジアけんきゅう", "ajiakenkyuu", "アジア研究"), 
+                     Question("Economics", "けいざい", "keizai", "経済"), Question("Engineering", "こうがく", "kougaku"), 
+                     Question("International Relations", "こくさいかんけい", "kakusaikankei", "国際関係"), Question("Computer", "コンピュータ", "konpyuuta"), 
+                     Question("Politics", "せいじ", "seiji", "政治"), Question("Biology", "せいぶつがく", "seibutsugaku", "生物学"), Question("Business", "ビジネス", "bijinesu"),
+                     Question("Literature", "ぶんがく", "bungaku", "文学"), Question("History", "れきし", "rekishi", "歴史"), Question("Doctor", "いしゃ", "isha", "医者"), 
+                     Question("Office Worker", "かいしゃいん", "kaishain", "会社員"), Question("Nurse", "かんごし", "kangoshi", "看護師"), 
+                     Question("High School Student", "こうこうせい", "koukousei", "高校生"), Question("Housewife", "しゅふ", "shufu", "主婦"), 
+                     Question("Graduate Student", "だいがくいんせい", "daigakuinsee", "大学院生"), Question("Lawyer", "べんごし", "bengoshi", "弁護士"), 
+                     Question("Mother", "おかあさん", "okaasan", "お母さん"), Question("Father", "お父さん", "otousan", "お父さん"), 
+                     Question("Older Sister", "おねえさん", "oneesan", "お姉さん"), Question("Older Brother", "おにいさん", "oniisan", "お兄さん"), 
+                     Question("Younger Sister", "いもうと", "imouto", "妹"), Question("Younger Brother", "おとうと", "otouto", "弟") ]
 
     # Chapter 2 Vocab. Located on Genki page 58-69.
     chapter2Vocab = [ Question("This One", "これ", "kore"), Question("That One", "それ", "sore"), Question("That One Over There", "あれ", "are"), Question("Which One", "どれ", "dore"),
                      Question("This", "この", "kono"), Question("That", "その", "sono"), Question("That Over There", "あの", "ano"), Question("Which", "どの", "dono"), 
                      Question("Here", "ここ", "koko"), Question("There", "そこ", "soko"), Question("Over There", "あそこ", "asoko"), Question("Where", "どこ", "doko"), 
-                     Question("Who", "だれ", "dare"), Question("Delicious", "おいしい", ["oishii", "美味しい"]), Question("Fish", "さかな", ["sakana", "魚"]), 
-                     Question("Pork Cutlet" "とんかつ", "tonkatsu"), Question("Meat", "にく", ["niku", "肉"]), Question("Menu", "メニュー", "menyuu"), 
-                     Question("Vegetables", "やさい", ["ysai", "野菜"]), Question("Umbrella", "かさ", ["kasa", "傘"]), Question("Bag", "かばん", ["kaban", "鞄"]), 
-                     Question("Shoes", "くつ", ["kutsu", "靴"]), Question("Wallet", "さいふ", ["saifu", "財布"]), Question("Jeans", "ジーンズ", "jiinsu"), 
-                     Question("Bicycle", "じてんしゃ", ["jitensha", "自転車"]), Question("Newspaper", "しんぶん", ["shinbun", "新聞"]), Question("Smartphone/Mobile", "スマホ", "sumaho"),
-                     Question("T-Shirt", "Ｔシャツ", "tiishatsu"), Question("Watch/Clock", "とけい", ["tokei", "時計"]), Question("Notebook", "ノート", "nooto"), Question("Pen", "ぺん", "pen"),
-                     Question("Hat/Cap", "ぼうし", ["boushi", "防止"]), Question("Book", "ほん", ["hon", "本"]), Question("Bank", "ぎんこう", ["ginkou", "銀行"]), 
-                     Question("Convenience Store", "コンビニ", "konbini"), Question("Toilet/Restroom", "トイレ", "toire"), Question("Library", "としょかん", ["toshokan", "図書館"]),
+                     Question("Who", "だれ", "dare"), Question("Delicious", "おいしい", "oishii", "美味しい"), Question("Fish", "さかな", "sakana", "魚"), 
+                     Question("Pork Cutlet" "とんかつ", "tonkatsu"), Question("Meat", "にく", "niku", "肉"), Question("Menu", "メニュー", "menyuu"), 
+                     Question("Vegetables", "やさい", "ysai", "野菜"), Question("Umbrella", "かさ", "kasa", "傘"), Question("Bag", "かばん", "kaban", "鞄"), 
+                     Question("Shoes", "くつ", "kutsu", "靴"), Question("Wallet", "さいふ", "saifu", "財布"), Question("Jeans", "ジーンズ", "jiinsu"), 
+                     Question("Bicycle", "じてんしゃ", "jitensha", "自転車"), Question("Newspaper", "しんぶん", "shinbun", "新聞"), Question("Smartphone/Mobile", "スマホ", "sumaho"),
+                     Question("T-Shirt", "Ｔシャツ", "tiishatsu"), Question("Watch/Clock", "とけい", "tokei", "時計"), Question("Notebook", "ノート", "nooto"), Question("Pen", "ぺん", "pen"),
+                     Question("Hat/Cap", "ぼうし", "boushi", "防止"), Question("Book", "ほん", "hon", "本"), Question("Bank", "ぎんこう", "ginkou", "銀行"), 
+                     Question("Convenience Store", "コンビニ", "konbini"), Question("Toilet/Restroom", "トイレ", "toire"), Question("Library", "としょかん", "toshokan", "図書館"),
                      Question("Post Office", "ゆうびんきょく", ["yuubinkyoku", "郵便局"]), Question("Britian", "イギリス", "igirisu"), Question("Korea", "かんこく", ["kankoku", "韓国"]),
-                     Question("China", "ちゅうごく", ["chuugoku", "中国"]), Question("English", "えいご", ["eigo", "英語"]), Question("Economics", "けいざい", ["keizai", "経済"]), 
-                     Question("Computer", "コンピュータ", "konpyuuta"), Question("Business", "ビジネス", "bijinesu"), Question("History", "れきし", ["rekishi", "歴史"]),
-                     Question("Mother", "おかあさん", ["okaasan", "お母さん"]), Question("Father", "お父さん", ["otousan", "お父さん"]), 
-                     Question("Welcome To The Store", "いらっしゃいませ", "irasshamase"), Question("Please", "おねがいします", ["onegaishimasu", "お願いします"]), 
+                     Question("China", "ちゅうごく", "chuugoku", "中国"), Question("English", "えいご", "eigo", "英語"), Question("Economics", "けいざい", "keizai", "経済"), 
+                     Question("Computer", "コンピュータ", "konpyuuta"), Question("Business", "ビジネス", "bijinesu"), Question("History", "れきし", "rekishi", "歴史"),
+                     Question("Mother", "おかあさん", "okaasan", "お母さん"), Question("Father", "お父さん", "otousan", "お父さん"), 
+                     Question("Welcome To The Store", "いらっしゃいませ", "irasshamase"), Question("Please", "おねがいします", "onegaishimasu", "お願いします"), 
                      Question("Please Give Me", "ください", "kudasai"), Question("Then/If That Is The Case", "じゃあ", "jaa"), Question("Here It Is", "どうぞ", "douzo"), 
                      Question("Thank-you (Informal)", "どうも", "doumo") ]
 
     # Chapter 3 Vocab. Located on Genki page 84-85.
-    chapter3Vocab = [ Question("Movie", "えいが", ["eiga", "映画"]), Question("Music", "おんがく", ["ongaku", "音楽"]), Question("Magazine", "ざっし", ["zasshi", "雑誌"]),
+    chapter3Vocab = [ Question("Movie", "えいが", "eiga", "映画"), Question("Music", "おんがく", "ongaku", "音楽"), Question("Magazine", "ざっし", "zasshi", "雑誌"),
                      Question("Sports", "スポーツ", "supaatsu"), Question("Date (Romantic)", "デート", "deeto"), Question("Tennis", "テニス", "tenisu"), Question("TV", "テリビ", "teribi"),
-                     Question("Ice Cream", "アイスクリーム", "aisukariimu"), Question("Hamburger", "ハンバーガー", "hanbaagaa"), Question("Sake/Alcohol", "おさけ", ["osake", "お酒"]),
-                     Question("Green Tea/Tea", "おちゃ", ["ocha", "お茶"]), Question("Coffee", "コーヒー", "koohii"), Question("Water", "みず", ["mizu", "水"]),
-                     Question("Breakfast", "あさごはん", ["asagohan", "朝ご飯"]), Question("Lunch", "ひるごはん", ["hirugohan", "昼ご飯"]),
-                     Question("Dinner", "ばんごはん", ["bangohan", "晩ご飯"]), Question("Home/House/My Place", "いえ", ["ie", "uchi", "うち", "家"]), 
-                     Question("School", "がっこう", ["gakkou", "学校"]), Question("Cafe", "カフェ", "cafe"), Question("Tomorrow", "あした", ["ashita", "明日"]),
-                     Question("Today", "きょう", ["kyou", "きょう"]), Question("Morning", "あさ", ["asa", "朝"]), Question("Tonight", "こんばん", ["konban", "今晩"]),
-                     Question("Every Day", "まいにち", ["mainichi", "毎日"]), Question("Every Night", "まいばん", ["maiban", "毎晩"]),
-                     Question("Weekend", "しゅうまつ", ["shuumatsu", "週末"]), Question("Saturday", "どようび", ["doyoubi", "土曜日"]), 
-                     Question("Sunday", "にちようび", ["nichiyoubi", "日曜日"]), Question("When", "いつ", "itsu"), Question("At About / Around", "ごろ", "goro"), 
-                     Question("To Go", "いく", ["iku", "行く"]), Question("To Go Back/To Return", "かえる", ["kaeru", "帰る"]), Question("To Listen/To Hear", "きく", ["kiku", "聞く"]),
-                     Question("To Drink", "のむ", ["nomu", "飲む"]), Question("To Speak/To Talk", "はなす", ["hanasu", "話す"]), Question("To Read", "よむ", ["yomu", "読む"]),
-                     Question("To Get Up", "おきる", ["okiru", "起きる"]), Question("To Eat", "たべる", ["taberu", "食べる"]), Question("To Sleep/To Go To Sleep", "ねる", ["neru", "寝る"]),
-                     Question("To See/To Look At/To Watch", "みる", ["miru", "見る"]), Question("To Come", "くる", ["kuru", "来る"]), Question("To Do", "する", "suru"),
-                     Question("To Study", "べんきょうする", ["benkyoushiru", "勉強する"]), Question("Good", "いい", "ii"), Question("Early", "はやい", ["hayai", "早い"]),
-                     Question("Not Much", "あまり", "amari"), Question("Not At All", "ぜんぜん", ["zenzen", "全然"]), Question("Usually", "たいてい", "taitei"),
-                     Question("A Little", "ちょっと", "chyotto"), Question("Sometimes", "ときどき", ["tokidoki", "時々"]), Question("Often/Much", "よく", "yoku"),
+                     Question("Ice Cream", "アイスクリーム", "aisukariimu"), Question("Hamburger", "ハンバーガー", "hanbaagaa"), Question("Sake/Alcohol", "おさけ", "osake", "お酒"),
+                     Question("Green Tea/Tea", "おちゃ", "ocha", "お茶"), Question("Coffee", "コーヒー", "koohii"), Question("Water", "みず", "mizu", "水"),
+                     Question("Breakfast", "あさごはん", "asagohan", "朝ご飯"), Question("Lunch", "ひるごはん", "hirugohan", "昼ご飯"),
+                     Question("Dinner", "ばんごはん", "bangohan", "晩ご飯"), Question("Home/House/My Place", "いえ", ["ie", "uchi", "うち"], "家"), 
+                     Question("School", "がっこう", "gakkou", "学校"), Question("Cafe", "カフェ", "cafe"), Question("Tomorrow", "あした", "ashita", "明日"),
+                     Question("Today", "きょう", "kyou", "今日"), Question("Morning", "あさ", "asa", "朝"), Question("Tonight", "こんばん", "konban", "今晩"),
+                     Question("Every Day", "まいにち", "mainichi", "毎日"), Question("Every Night", "まいばん", "maiban", "毎晩"),
+                     Question("Weekend", "しゅうまつ", "shuumatsu", "週末"), Question("Saturday", "どようび", "doyoubi", "土曜日"), 
+                     Question("Sunday", "にちようび", "nichiyoubi", "日曜日"), Question("When", "いつ", "itsu"), Question("At About/Around", "ごろ", "goro"), 
+                     Question("To Go", "いく", "iku", "行く"), Question("To Go Back/To Return", "かえる", "kaeru", "帰る"), Question("To Listen/To Hear", "きく", "kiku", "聞く"),
+                     Question("To Drink", "のむ", "nomu", "飲む"), Question("To Speak/To Talk", "はなす", "hanasu", "話す"), Question("To Read", "よむ", "yomu", "読む"),
+                     Question("To Get Up", "おきる", "okiru", "起きる"), Question("To Eat", "たべる", "taberu", "食べる"), Question("To Sleep/To Go To Sleep", "ねる", "neru", "寝る"),
+                     Question("To See/To Look At/To Watch", "みる", "miru", "見る"), Question("To Come", "くる", "kuru", "来る"), Question("To Do", "する", "suru"),
+                     Question("To Study", "べんきょうする", "benkyoushiru", "勉強する"), Question("Good", "いい", "ii"), Question("Early", "はやい", "hayai", "早い"),
+                     Question("Not Much", "あまり", "amari"), Question("Not At All", "ぜんぜん", "zenzen", "全然"), Question("Usually", "たいてい", "taitei", "大抵"),
+                     Question("A Little", "ちょっと", "chyotto"), Question("Sometimes", "ときどき", "tokidoki", "時々"), Question("Often/Much", "よく", "yoku"),
                      Question("That's Right/Let Me See", "そうですね", "soudesune"), Question("But", "でも", "demo"), Question("How About...?/How Is...?", "どうですか", "doudesuka"), 
                      Question("Yes (Casual)", "ええ", "ee") ]
 
     # Chapter 4 Vocab. Located on Genki page 104-106.
-    chapter4Vocab = [ Question("Game", "ゲーム", ["geemu"]), Question("Part-Time Job", "アルバイト", ["arubaito", "バイト"]), Question("Shopping", "かいもの", ["kaimono", "買い物"]),
-                     Question("Class", "クラス", "kurasu"), Question("Dog", "いぬ", ["inu", "犬"]), Question("Cat", "ねこ", ["neko", "猫"]), Question("Person", "ひと", ["hito", "人"]),
-                     Question("Child", "こども", ["kodomo", "子供"]), Question("You", "あなた", "anata"), Question("Chair", "いす", "isu"), Question("Desk", "つくえ", ["tsukue", "机"]),
-                     Question("Picture/Photohraph", "じゃしん", ["jashin", "邪神"]), Question("Flower", "はな", ["hana", "花"]), Question("Term Paper", "レポート", "repooto"), 
-                     Question("Rice/Meal", "ごはん", ["gohan", "ご飯"]), Question("Bread", "パン", "pan"), Question("Temple", "おてら", ["otera", "お寺"]), 
-                     Question("Park", "こうえん", ["kouen", "公園"]), Question("Supermarket", "スーパー", "suupaa"), Question("Bus Stop", "バスてい", ["basutei", "バス停"]), 
-                     Question("Hospital", "びょういん", ["byouin", "病院"]), Question("Hotel", "ホテル", "hoteru"), Question("Bookstore", "ほんや", ["honya", "本屋"]), 
-                     Question("Town/City", "まち", ["machi", "町"]), Question("Resturant", "レストラン", "resutoran"), Question("Yesterday", "きのう", ["kinou", "昨日"]),
-                     Question("Hours", "じかん", ["jikan", "時間"]), Question("One Hour", "いちじかん", ["ichijikan", "一時間"]), Question("Last Week", "せんしゅう", ["senshuu", "先週"]),
-                     Question("When/At The Time Of", "とき", ["toki", "時"]), Question("Monday", "げつように", ["getsuyoubi", "月曜日"]), Question("Tuesday", "かようび", ["kayoubi", "火曜日"]),
-                     Question("Wednesday", "すいようび", ["suiyoubi", "水曜日"]), Question("Thursday", "もくようび", ["mokuyoubi", "木曜日"]), 
-                     Question("Friday", "きにょうび", ["kinyoubi", "金曜日"]), Question("To Meet A Person/To See A Person", "あう", ["au", "会う"]), Question("There Is", "ある", "aru"), 
-                     Question("To Buy", "かう", ["kau", "買う"]), Question("To Write", "かく", ["kaku", "書く"]), Question("To Take A Picture", "とる", ["toru", "撮る"]), 
-                     Question("To Wait", "まつ", ["matsu", "待つ"]), Question("To Understand", "わかる", "wakaru"), Question("About", "ぐらい", "gurai"), 
+    chapter4Vocab = [ Question("Game", "ゲーム", "geemu"), Question("Part-Time Job", "アルバイト", ["arubaito", "バイト"]), Question("Shopping", "かいもの", "kaimono", "買い物"),
+                     Question("Class", "クラス", "kurasu"), Question("Dog", "いぬ", "inu", "犬"), Question("Cat", "ねこ", "neko", "猫"), Question("Person", "ひと", "hito", "人"),
+                     Question("Child", "こども", "kodomo", "子供"), Question("You", "あなた", "anata"), Question("Chair", "いす", "isu"), Question("Desk", "つくえ", "tsukue", "机"),
+                     Question("Picture/Photohraph", "じゃしん", "jashin", "邪神"), Question("Flower", "はな", "hana", "花"), Question("Term Paper", "レポート", "repooto"), 
+                     Question("Rice/Meal", "ごはん", "gohan", "ご飯"), Question("Bread", "パン", "pan"), Question("Temple", "おてら", "otera", "お寺"), 
+                     Question("Park", "こうえん", "kouen", "公園"), Question("Supermarket", "スーパー", "suupaa"), Question("Bus Stop", "バスてい", "basutei", "バス停"), 
+                     Question("Hospital", "びょういん", "byouin", "病院"), Question("Hotel", "ホテル", "hoteru"), Question("Bookstore", "ほんや", "honya", "本屋"), 
+                     Question("Town/City", "まち", "machi", "町"), Question("Resturant", "レストラン", "resutoran"), Question("Yesterday", "きのう", "kinou", "昨日"),
+                     Question("Hours", "じかん", "jikan", "時間"), Question("One Hour", "いちじかん", "ichijikan", "一時間"), Question("Last Week", "せんしゅう", "senshuu", "先週"),
+                     Question("When/At The Time Of", "とき", "toki", "時"), Question("Monday", "げつように", "getsuyoubi", "月曜日"), Question("Tuesday", "かようび", "kayoubi", "火曜日"),
+                     Question("Wednesday", "すいようび", "suiyoubi", "水曜日"), Question("Thursday", "もくようび", "mokuyoubi", "木曜日"), 
+                     Question("Friday", "きにょうび", "kinyoubi", "金曜日"), Question("To Meet A Person/To See A Person", "あう", "au", "会う"), Question("There Is", "ある", "aru"), 
+                     Question("To Buy", "かう", "kau", "買う"), Question("To Write", "かく", "kaku", "書く"), Question("To Take A Picture", "とる", "toru", "撮る"), 
+                     Question("To Wait", "まつ", "matsu", "待つ"), Question("To Understand", "わかる", "wakaru"), Question("About", "ぐらい", "gurai"), 
                      Question("I'm Sorry", "ごめんなさい", "gomenasai"), Question("And Then", "それから", "sorekara"), Question("So/Therefore", "だから", "dakara"), 
                      Question("Many/A Lot", "たくさん", "takusan"), Question("Together With/And", "と", "to"), Question("Why", "どうして", "doushite"), 
-                     Question("Alone", "ひとりで", ["hitoride", "一人で"]), Question("Hello?", "もしもし", "moshimoshi"), Question("Right", "みぎ", ["migi", "右"]), 
-                     Question("Left", "ひだり",  ["hidari", "ひだり"]), Question("Front", "まえ",  ["mae", "前"]), Question("Back", "うしろ",  ["ushiro", "後ろ"]), 
-                     Question("Inside", "なか",  ["naka", "中"]), Question("On", "うえ",  ["ue", "上"]), Question("Under", "した",  ["shita", "下"]), 
-                     Question("Near/Nearby", "ちかく", ["chikaku", "近く"]), Question("Next", "となり", ["tonari", "隣"]), Question("Between", "あいだ",  ["aida", "間"]) ]
+                     Question("Alone", "ひとりで", "hitoride", "一人で"), Question("Hello?", "もしもし", "moshimoshi"), Question("Right", "みぎ", "migi", "右"), 
+                     Question("Left", "ひだり",  "hidari", "ひだり"), Question("Front", "まえ", ["mae", "前"]), Question("Back", "うしろ", "ushiro", "後ろ"), 
+                     Question("Inside", "なか",  "naka", "中"), Question("On", "うえ", "ue", "上"), Question("Under", "した", "shita", "下"), 
+                     Question("Near/Nearby", "ちかく", "chikaku", "近く"), Question("Next", "となり", "tonari", "隣"), Question("Between", "あいだ", "aida", "間") ]
 
     print("Vocab Quiz (MLJP201)\n")
     print("\t1 Chapter 1 Vocabulary")
