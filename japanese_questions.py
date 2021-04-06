@@ -386,7 +386,24 @@ def vocabQuizMLJP1():
                      Question("Younger Sister", "いもうと", ["imouto", "妹"]), Question("Younger Brother", "おとうと", ["otouto", "弟"]), ]
 
     # Chapter 2 Vocab. Located on Genki page 58-69.
-    chapter2Vocab = []
+    chapter2Vocab = [ Question("This One", "これ", "kore"), Question("That One", "それ", "sore"), Question("That One Over There", "あれ", "are"), Question("Which One", "どれ", "dore"),
+                     Question("This", "この", "kono"), Question("That", "その", "sono"), Question("That Over There", "あの", "ano"), Question("Which", "どの", "dono"), 
+                     Question("Here", "ここ", "koko"), Question("There", "そこ", "soko"), Question("Over There", "あそこ", "asoko"), Question("Where", "どこ", "doko"), 
+                     Question("Who", "だれ", "dare"), Question("Delicious", "おいしい", ["oishii", "美味しい"]), Question("Fish", "さかな", ["sakana", "魚"]), 
+                     Question("Pork Cutlet" "とんかつ", "tonkatsu"), Question("Meat", "にく", ["niku", "肉"]), Question("Menu", "メニュー", "menyuu"), 
+                     Question("Vegetables", "やさい", ["ysai", "野菜"]), Question("Umbrella", "かさ", ["kasa", "傘"]), Question("Bag", "かばん", ["kaban", "鞄"]), 
+                     Question("Shoes", "くつ", ["kutsu", "靴"]), Question("Wallet", "さいふ", ["saifu", "財布"]), Question("Jeans", "ジーンズ", "jiinsu"), 
+                     Question("Bicycle", "じてんしゃ", ["jitensha", "自転車"]), Question("Newspaper", "しんぶん", ["shinbun", "新聞"]), Question("Smartphone/Mobile", "スマホ", "sumaho"),
+                     Question("T-Shirt", "Ｔシャツ", "tiishatsu"), Question("Watch/Clock", "とけい", ["tokei", "時計"]), Question("Notebook", "ノート", "nooto"), Question("Pen", "ぺん", "pen"),
+                     Question("Hat/Cap", "ぼうし", ["boushi", "防止"]), Question("Book", "ほん", ["hon", "本"]), Question("Bank", "ぎんこう", ["ginkou", "銀行"]), 
+                     Question("Convenience Store", "コンビニ", "konbini"), Question("Toilet/Restroom", "トイレ", "toire"), Question("Library", "としょかん", ["toshokan", "図書館"]),
+                     Question("Post Office", "ゆうびんきょく", ["yuubinkyoku", "郵便局"]), Question("Britian", "イギリス", "igirisu"), Question("Korea", "かんこく", ["kankoku", "韓国"]),
+                     Question("China", "ちゅうごく", ["chuugoku", "中国"]), Question("English", "えいご", ["eigo", "英語"]), Question("Economics", "けいざい", ["keizai", "経済"]), 
+                     Question("Computer", "コンピュータ", "konpyuuta"), Question("Business", "ビジネス", "bijinesu"), Question("History", "れきし", ["rekishi", "歴史"]),
+                     Question("Mother", "おかあさん", ["okaasan", "お母さん"]), Question("Father", "お父さん", ["otousan", "お父さん"]), 
+                     Question("Welcome To The Store", "いらっしゃいませ", "irasshamase"), Question("Please", "おねがいします", ["onegaishimasu", "お願いします"]), 
+                     Question("Please Give Me", "ください", "kudasai"), Question("Then/If That Is The Case", "じゃあ", "jaa"), Question("Here It Is", "どうぞ", "douzo"), 
+                     Question("Thank-you (Informal)", "どうも", "doumo") ]
 
     # Chapter 3 Vocab. Located on Genki page 84-85.
     chapter3Vocab = [ Question("Movie", "えいが", ["eiga", "映画"]), Question("Music", "おんがく", ["ongaku", "音楽"]), Question("Magazine", "ざっし", ["zasshi", "雑誌"]),
