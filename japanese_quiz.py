@@ -8,10 +8,10 @@ desc: This program will quiz you on a wide range of Japanese words and phrases. 
         and/or Kanji! Please note that this quiz only contains material I've taught myself and/or learned in lectures at RIT.
     
         Japan has three writing scripts, Hiragana, Katakana, and Kanji. All of these writing scripts can be used in a single senetence,
-        so it's important to know how to read and understand all three. A simple example setence of using all three writing scripts would
-        be: "テレビを見ました。" This sentence translates to "I watched TV." Each writing scirpt is defined below.
+        so it's important to know how to read and understand all three. A simple example sentence of using all three writing scripts would
+        be: "テレビを見ました。" This sentence translates to "I watched TV." Each writing script is defined below.
 
-        I used Genki An Integrated Course In Elementary Japanese 3rd Ed. for the defintions below (They can be found on page 20).
+        I used Genki An Integrated Course In Elementary Japanese 3rd Ed. for the definitions below (Definitions can be found on page 20).
 
         Hiragana contains 46 basic syllables that are used as conjugation endings, function words, and native Japanese words. Katakana 
         is used for writing loanwords and foreign names. Kanji are Chinese characters that were brought to Japan. Kanji represent not 
