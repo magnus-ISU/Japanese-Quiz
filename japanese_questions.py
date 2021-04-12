@@ -446,14 +446,14 @@ def vocabQuizMLJP1():
                      Question("Hours", "じかん", "jikan", "時間"), Question("One Hour", "いちじかん", "ichijikan", "一時間"), Question("Last Week", "せんしゅう", "senshuu", "先週"),
                      Question("When/At The Time Of", "とき", "toki", "時"), Question("Monday", "げつように", "getsuyoubi", "月曜日"), Question("Tuesday", "かようび", "kayoubi", "火曜日"),
                      Question("Wednesday", "すいようび", "suiyoubi", "水曜日"), Question("Thursday", "もくようび", "mokuyoubi", "木曜日"), 
-                     Question("Friday", "きにょうび", "kinyoubi", "金曜日"), Question("To Meet A Person/To See A Person", "あう", "au", "会う"), Question("There Is", "ある", "aru"), 
+                     Question("Friday", "きんようび", "kinyoubi", "金曜日"), Question("To Meet A Person/To See A Person", "あう", "au", "会う"), Question("There Is", "ある", "aru"), 
                      Question("To Buy", "かう", "kau", "買う"), Question("To Write", "かく", "kaku", "書く"), Question("To Take A Picture", "とる", "toru", "撮る"), 
                      Question("To Wait", "まつ", "matsu", "待つ"), Question("To Understand", "わかる", "wakaru"), Question("About", "ぐらい", "gurai"), 
                      Question("I'm Sorry", "ごめんなさい", "gomenasai"), Question("And Then", "それから", "sorekara"), Question("So/Therefore", "だから", "dakara"), 
                      Question("Many/A Lot", "たくさん", "takusan"), Question("Together With/And", "と", "to"), Question("Why", "どうして", "doushite"), 
                      Question("Alone", "ひとりで", "hitoride", "一人で"), Question("Hello?", "もしもし", "moshimoshi"), Question("Right", "みぎ", "migi", "右"), 
                      Question("Left", "ひだり",  "hidari", "ひだり"), Question("Front", "まえ", ["mae", "前"]), Question("Back", "うしろ", "ushiro", "後ろ"), 
-                     Question("Inside", "なか",  "naka", "中"), Question("On", "うえ", "ue", "上"), Question("Under", "した", "shita", "下"), 
+                     Question("Inside", "なか",  "naka", "中"), Question("On", "うえ", "ue", "上"), Question("Under/Below", "した", "shita", "下"), 
                      Question("Near/Nearby", "ちかく", "chikaku", "近く"), Question("Next", "となり", "tonari", "隣"), Question("Between", "あいだ", "aida", "間") ]
 
     print("Vocab Quiz (MLJP201)\n")
