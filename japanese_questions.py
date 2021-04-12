@@ -61,7 +61,7 @@ class Question:
             else:
                 print("{} was also an accepted answers!".format(self.alternateAnswers))
         
-        if not kanjiQuiz:
+        if kanjiQuiz:
             if self.kanji is not None:
                 print("{} was the accepted Kanji answer!".format(self.kanji))
 
@@ -437,8 +437,8 @@ def vocabQuizMLJP1():
     # Chapter 4 Vocab. Located on Genki page 104-106.
     chapter4Vocab = [ Question("Game", "ゲーム", "geemu"), Question("Part-Time Job", "アルバイト", ["arubaito", "バイト"]), Question("Shopping", "かいもの", "kaimono", "買い物"),
                      Question("Class", "クラス", "kurasu"), Question("Dog", "いぬ", "inu", "犬"), Question("Cat", "ねこ", "neko", "猫"), Question("Person", "ひと", "hito", "人"),
-                     Question("Child", "こども", "kodomo", "子供"), Question("You", "あなた", "anata"), Question("Chair", "いす", "isu"), Question("Desk", "つくえ", "tsukue", "机"),
-                     Question("Picture/Photohraph", "じゃしん", "jashin", "邪神"), Question("Flower", "はな", "hana", "花"), Question("Term Paper", "レポート", "repooto"), 
+                     Question("Child", "こども", "kodomo", "子供"), Question("You", "あなた", "anata"), Question("Chair", "いす", "isu", "椅子"), Question("Desk", "つくえ", "tsukue", "机"),
+                     Question("Picture/Photohraph", "しゃしん", "shashin", "写真"), Question("Flower", "はな", "hana", "花"), Question("Term Paper", "レポート", "repooto"), 
                      Question("Rice/Meal", "ごはん", "gohan", "ご飯"), Question("Bread", "パン", "pan"), Question("Temple", "おてら", "otera", "お寺"), 
                      Question("Park", "こうえん", "kouen", "公園"), Question("Supermarket", "スーパー", "suupaa"), Question("Bus Stop", "バスてい", "basutei", "バス停"), 
                      Question("Hospital", "びょういん", "byouin", "病院"), Question("Hotel", "ホテル", "hoteru"), Question("Bookstore", "ほんや", "honya", "本屋"), 
@@ -446,13 +446,13 @@ def vocabQuizMLJP1():
                      Question("Hours", "じかん", "jikan", "時間"), Question("One Hour", "いちじかん", "ichijikan", "一時間"), Question("Last Week", "せんしゅう", "senshuu", "先週"),
                      Question("When/At The Time Of", "とき", "toki", "時"), Question("Monday", "げつように", "getsuyoubi", "月曜日"), Question("Tuesday", "かようび", "kayoubi", "火曜日"),
                      Question("Wednesday", "すいようび", "suiyoubi", "水曜日"), Question("Thursday", "もくようび", "mokuyoubi", "木曜日"), 
-                     Question("Friday", "きんようび", "kinyoubi", "金曜日"), Question("To Meet A Person/To See A Person", "あう", "au", "会う"), Question("There Is", "ある", "aru"), 
-                     Question("To Buy", "かう", "kau", "買う"), Question("To Write", "かく", "kaku", "書く"), Question("To Take A Picture", "とる", "toru", "撮る"), 
+                     Question("Friday", "きんようび", "kinyoubi", "金曜日"), Question("To Meet/To See (A Person)", "あう", "au", "会う"), Question("There Is", "ある", "aru"), 
+                     Question("To Buy", "かう", "kau", "買う"), Question("To Write", "かく", "kaku", "書く"), Question("To Take (A Picture)", "とる", "toru", "撮る"), 
                      Question("To Wait", "まつ", "matsu", "待つ"), Question("To Understand", "わかる", "wakaru"), Question("About", "ぐらい", "gurai"), 
                      Question("I'm Sorry", "ごめんなさい", "gomenasai"), Question("And Then", "それから", "sorekara"), Question("So/Therefore", "だから", "dakara"), 
                      Question("Many/A Lot", "たくさん", "takusan"), Question("Together With/And", "と", "to"), Question("Why", "どうして", "doushite"), 
                      Question("Alone", "ひとりで", "hitoride", "一人で"), Question("Hello?", "もしもし", "moshimoshi"), Question("Right", "みぎ", "migi", "右"), 
-                     Question("Left", "ひだり",  "hidari", "ひだり"), Question("Front", "まえ", ["mae", "前"]), Question("Back", "うしろ", "ushiro", "後ろ"), 
+                     Question("Left", "ひだり",  "hidari", "左"), Question("Front", "まえ", ["mae", "前"]), Question("Back", "うしろ", "ushiro", "後ろ"), 
                      Question("Inside", "なか",  "naka", "中"), Question("On", "うえ", "ue", "上"), Question("Under/Below", "した", "shita", "下"), 
                      Question("Near/Nearby", "ちかく", "chikaku", "近く"), Question("Next", "となり", "tonari", "隣"), Question("Between", "あいだ", "aida", "間") ]
 
