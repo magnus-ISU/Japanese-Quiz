@@ -3,6 +3,7 @@ Japanese Questions v1.0
 
 author: Parker J Swierzewski
 language: python3
+file: japanese_questions.py
 desc: This program contains the questions that japanese_quiz.py will utilize.
 """
 import random   # Used to randomly shuffle question.
@@ -26,7 +27,7 @@ class Question:
         self.alternateAnswers = alternateAnswers
         self.kanji = kanji
 
-    def correct(self, answer, kanjiQuiz):
+    def correct(self, answer, englishQuestion):
         """
         A pointless function to tell the user
         that they got the answer correct.
@@ -39,11 +40,11 @@ class Question:
         print("Correct! :)")
 
         # There is no need to display the Kanji if the Kanji Quiz is active.
-        if not kanjiQuiz:
+        if not englishQuestion:
             if (isHiragana(answer) or isKatakana(answer)) and (self.kanji is not None):
                 print("The Kanji (漢字) for this word is {}".format(self.kanji))
 
-    def incorrect(self, kanjiQuiz):
+    def incorrect(self, englishQuestion):
         """
         A pointless function to tell the user
         that they got the answer incorrect.
@@ -61,7 +62,7 @@ class Question:
             else:
                 print("{} was also an accepted answers!".format(self.alternateAnswers))
         
-        if kanjiQuiz:
+        if englishQuestion:
             if self.kanji is not None:
                 print("{} was the accepted Kanji answer!".format(self.kanji))
 
@@ -107,6 +108,31 @@ class Question:
             self.correctAnswer = q
             self.alternateAnswers = None
 
+class KanjiQuestion:
+    """
+    Used to define Kanji questions.
+    """
+    def __init__(self, question, correctAnswer, alternateAnswers=None, meaning=""):
+        """
+        This function is used to create a KanjiQuestion object.
+
+        :param self: The object.
+        :param question: The question prompt.
+        :param correctAnswer: The best, or correct answer. 
+        :param alternateAnswers: Other accepted answers.
+        :param meaning: The meaning of the Kanji.
+        """
+        self.question = question
+        self.correctAnswer = correctAnswer
+        self.alternateAnwsers = alternateAnswers
+        self.meaning = meaning
+
+    def correct(self):
+        pass
+
+    def incorrect(self):
+        pass
+
 def calculateScore(score, max_score):
     """
     This function is used to print the score the
@@ -116,8 +142,18 @@ def calculateScore(score, max_score):
     :param max_score: The max score for the quiz.
     :return: None
     """
-    print("\n[!] Congrats you scored {:03.2f}!".format((score/max_score)*100))
-    print("[!] You got {} wrong!".format(max_score-score))
+    n_score = (score/max_score)*100
+
+    if n_score < 80:
+        print("\n[!] Congrats you scored {:03.2f}!".format(n_score))
+        print("[!] You got {} wrong!".format(max_score-score))
+    elif n_score < 70:
+        print("\n[!] Nice try! You scored {:03.2f}!".format(n_score))
+        print("[!] You got {} wrong!".format(max_score-score))
+    else:
+        print("\n[!] You scored {:03.2f}! Keep practicing!".format(n_score))
+        print("[!] You got {} wrong!".format(max_score-score))
+
     input("[!] Press any key to continue...")
 
 def isHiragana(str):
