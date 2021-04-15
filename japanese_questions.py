@@ -12,20 +12,22 @@ class Question:
     """
     Used to define questions.
     """
-    def __init__(self, question, correctAnswer, alternateAnswers=None, kanji=None):
+    def __init__(self, question, correctAnswer, alternateAnswers=None, kanji=None, context=None):
         """
         This function is used to create a Question object.
 
         :param self: The object.
         :param question: The question prompt.
-        :param correctAnswer: The best, or correct answer. 
+        :param correctAnswer: The best, or correct answer.
         :param alternateAnswers: Other accepted answers.
-        :param kanji: The kanji of the correctAnswer (None if no kanji). 
+        :param kanji: The kanji of the correctAnswer (None if no kanji).
+        :param context: Provides extra information to help.
         """
         self.question = question
         self.correctAnswer = correctAnswer
         self.alternateAnswers = alternateAnswers
         self.kanji = kanji
+        self.context = context
 
     def correct(self, answer, englishQuestion):
         """
@@ -370,7 +372,13 @@ def vocabQuizPrompt(quizList):
             choice = random.randint(0, 1)
 
         if choice == 0:
-            print("\n" + element.question)
+            prompt = ""
+            if element.context is not None:
+                prompt = element.question + " (" + element.context + ")"
+            else:
+                prompt = element.question
+
+            print("\n" + prompt)
             answer = input("What is the Japanese for the word above?: ")
 
             if (answer.lower() == element.correctAnswer) or element.isAlternate(answer):
@@ -446,12 +454,13 @@ def vocabQuizMLJP1():
                      Question("Mother", "おかあさん", "okaasan", "お母さん"), Question("Father", "お父さん", "otousan", "お父さん"), 
                      Question("Welcome To The Store", "いらっしゃいませ", "irasshamase"), Question("Please", "おねがいします", "onegaishimasu", "お願いします"), 
                      Question("Please Give Me", "ください", "kudasai"), Question("Then/If That Is The Case", "じゃあ", "jaa"), Question("Here It Is", "どうぞ", "douzo"), 
-                     Question("Thank-you (Informal)", "どうも", "doumo") ]
+                     Question("Thank-you", "どうも", "doumo", context="Informal Version") ]
 
     # Chapter 3 Vocab. Located on Genki page 84-85.
     chapter3Vocab = [ Question("Movie", "えいが", "eiga", "映画"), Question("Music", "おんがく", "ongaku", "音楽"), Question("Magazine", "ざっし", "zasshi", "雑誌"),
-                     Question("Sports", "スポーツ", "supaatsu"), Question("Date (Romantic)", "デート", "deeto"), Question("Tennis", "テニス", "tenisu"), Question("TV", "テリビ", "teribi"),
-                     Question("Ice Cream", "アイスクリーム", "aisukariimu"), Question("Hamburger", "ハンバーガー", "hanbaagaa"), Question("Sake/Alcohol", "おさけ", "osake", "お酒"),
+                     Question("Sports", "スポーツ", "supaatsu"), Question("Date", "デート", "deeto", context="Romantic Date"), 
+                     Question("Tennis", "テニス", "tenisu"), Question("TV", "テリビ", "teribi"), Question("Ice Cream", "アイスクリーム", "aisukariimu"), 
+                     Question("Hamburger", "ハンバーガー", "hanbaagaa"), Question("Sake/Alcohol", "おさけ", "osake", "お酒"),
                      Question("Green Tea/Tea", "おちゃ", "ocha", "お茶"), Question("Coffee", "コーヒー", "koohii"), Question("Water", "みず", "mizu", "水"),
                      Question("Breakfast", "あさごはん", "asagohan", "朝ご飯"), Question("Lunch", "ひるごはん", "hirugohan", "昼ご飯"),
                      Question("Dinner", "ばんごはん", "bangohan", "晩ご飯"), Question("Home/House/My Place", "いえ", ["ie", "uchi", "うち"], "家"), 
@@ -467,14 +476,14 @@ def vocabQuizMLJP1():
                      Question("To Study", "べんきょうする", "benkyoushiru", "勉強する"), Question("Good", "いい", "ii"), Question("Early", "はやい", "hayai", "早い"),
                      Question("Not Much", "あまり", "amari"), Question("Not At All", "ぜんぜん", "zenzen", "全然"), Question("Usually", "たいてい", "taitei", "大抵"),
                      Question("A Little", "ちょっと", "chyotto"), Question("Sometimes", "ときどき", "tokidoki", "時々"), Question("Often/Much", "よく", "yoku"),
-                     Question("That's Right/Let Me See", "そうですね", "soudesune"), Question("But", "でも", "demo"), Question("How About...?/How Is...?", "どうですか", "doudesuka"), 
-                     Question("Yes (Casual)", "ええ", "ee") ]
+                     Question("That's Right/Let Me See", "そうですね", "soudesune"), Question("But", "でも", "demo"), Question("How About/How Is", "どうですか", "doudesuka"), 
+                     Question("Yes", "ええ", "ee", context="Informal Version") ]
 
     # Chapter 4 Vocab. Located on Genki page 104-106.
-    chapter4Vocab = [ Question("Game", "ゲーム", "geemu"), Question("Part-Time Job", "アルバイト", ["arubaito", "バイト"]), Question("Shopping", "かいもの", "kaimono", "買い物"),
+    chapter4Vocab = [ Question("Game", "ゲーム", "geemu"), Question("Part-Time Job", "アルバイト", ["arubaito", "バイト", "baito"]), Question("Shopping", "かいもの", "kaimono", "買い物"),
                      Question("Class", "クラス", "kurasu"), Question("Dog", "いぬ", "inu", "犬"), Question("Cat", "ねこ", "neko", "猫"), Question("Person", "ひと", "hito", "人"),
                      Question("Child", "こども", "kodomo", "子供"), Question("You", "あなた", "anata"), Question("Chair", "いす", "isu", "椅子"), Question("Desk", "つくえ", "tsukue", "机"),
-                     Question("Picture/Photohraph", "しゃしん", "shashin", "写真"), Question("Flower", "はな", "hana", "花"), Question("Term Paper", "レポート", "repooto"), 
+                     Question("Picture/Photograph", "しゃしん", "shashin", "写真"), Question("Flower", "はな", "hana", "花"), Question("Term Paper", "レポート", "repooto"), 
                      Question("Rice/Meal", "ごはん", "gohan", "ご飯"), Question("Bread", "パン", "pan"), Question("Temple", "おてら", "otera", "お寺"), 
                      Question("Park", "こうえん", "kouen", "公園"), Question("Supermarket", "スーパー", "suupaa"), Question("Bus Stop", "バスてい", "basutei", "バス停"), 
                      Question("Hospital", "びょういん", "byouin", "病院"), Question("Hotel", "ホテル", "hoteru"), Question("Bookstore", "ほんや", "honya", "本屋"), 
@@ -482,14 +491,14 @@ def vocabQuizMLJP1():
                      Question("Hours", "じかん", "jikan", "時間"), Question("One Hour", "いちじかん", "ichijikan", "一時間"), Question("Last Week", "せんしゅう", "senshuu", "先週"),
                      Question("When/At The Time Of", "とき", "toki", "時"), Question("Monday", "げつように", "getsuyoubi", "月曜日"), Question("Tuesday", "かようび", "kayoubi", "火曜日"),
                      Question("Wednesday", "すいようび", "suiyoubi", "水曜日"), Question("Thursday", "もくようび", "mokuyoubi", "木曜日"), 
-                     Question("Friday", "きんようび", "kinyoubi", "金曜日"), Question("To Meet/To See (A Person)", "あう", "au", "会う"), Question("There Is", "ある", "aru"), 
-                     Question("To Buy", "かう", "kau", "買う"), Question("To Write", "かく", "kaku", "書く"), Question("To Take (A Picture)", "とる", "toru", "撮る"), 
+                     Question("Friday", "きんようび", "kinyoubi", "金曜日"), Question("To Meet/To See", "あう", "au", "会う", context="To Meet A Person"), Question("There Is", "ある", "aru"),
+                     Question("To Buy", "かう", "kau", "買う"), Question("To Write", "かく", "kaku", "書く"), Question("To Take", "とる", "toru", "撮る", context="To Take a Picture"), 
                      Question("To Wait", "まつ", "matsu", "待つ"), Question("To Understand", "わかる", "wakaru"), Question("About", "ぐらい", "gurai"), 
                      Question("I'm Sorry", "ごめんなさい", "gomenasai"), Question("And Then", "それから", "sorekara"), Question("So/Therefore", "だから", "dakara"), 
                      Question("Many/A Lot", "たくさん", "takusan"), Question("Together With/And", "と", "to"), Question("Why", "どうして", "doushite"), 
-                     Question("Alone", "ひとりで", "hitoride", "一人で"), Question("Hello?", "もしもし", "moshimoshi"), Question("Right", "みぎ", "migi", "右"), 
-                     Question("Left", "ひだり",  "hidari", "左"), Question("Front", "まえ", ["mae", "前"]), Question("Back", "うしろ", "ushiro", "後ろ"), 
-                     Question("Inside", "なか",  "naka", "中"), Question("On", "うえ", "ue", "上"), Question("Under/Below", "した", "shita", "下"), 
+                     Question("Alone", "ひとりで", "hitoride", "一人で"), Question("Hello", "もしもし", "moshimoshi", context="Phone"), Question("Right", "みぎ", "migi", "右"), 
+                     Question("Left", "ひだり", "hidari", "左"), Question("Front", "まえ", "mae", "前"), Question("Back", "うしろ", "ushiro", "後ろ"), 
+                     Question("Inside", "なか", "naka", "中"), Question("On", "うえ", "ue", "上"), Question("Under/Below", "した", "shita", "下"), 
                      Question("Near/Nearby", "ちかく", "chikaku", "近く"), Question("Next", "となり", "tonari", "隣"), Question("Between", "あいだ", "aida", "間") ]
 
     print("Vocab Quiz (MLJP201)\n")
