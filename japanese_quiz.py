@@ -4,7 +4,7 @@ Japanese Quiz v1.0
 author: Parker J Swierzewski
 language: python3
 file: japanese_quiz.py
-desc: This program will quiz you on a wide range of Japanese words and phrases. You can also quiz yourself on Hiragana, Katakana,
+desc: This program will quiz you on a wide range of Japanese words and Kanji. You can also quiz yourself on Hiragana, Katakana,
         and/or Kanji! Please note that this quiz only contains material I've taught myself and/or learned in lectures at RIT.
     
         Japan has three writing scripts, Hiragana, Katakana, and Kanji. All of these writing scripts can be used in a single senetence,
@@ -29,9 +29,7 @@ if __name__ == "__main__":
         print("\t1 Hiragana Quiz (ひらがな)")
         print("\t2 Katakana Quiz (カタカナ)")
         print("\t3 Kanji Quiz (漢字)")
-        print("\t4 Hard Vocab Quiz")
-        print("\t5 Phrases Quiz")
-        print("\t6 Vocab Quizzes (MLJP201)")
+        print("\t5 Vocab Quizzes (MLJP201)")
         
         print("\n[!] Please note that although a Japanese keyboard isn't required, it is strongly recommended!")
         print("[!] Please also make sure you can see the Japanese characters above!")
@@ -43,10 +41,12 @@ if __name__ == "__main__":
             japanese_questions.hiraganaQuiz()
         elif quizType == "2":
             japanese_questions.katakanaQuiz()
+        #elif quizType == "3":
+            #japanese_questions.kanjiQuiz()
+        elif quizType == "4":
+            japanese_questions.vocabQuizMLJP1()
         #elif quizType == "4":
             #japanese_questions.hardVocabQuiz()
-        elif quizType == "6":
-            japanese_questions.vocabQuizMLJP1()
         else:
             print("[!] This quiz has not been implemented yet.\n\n")
 

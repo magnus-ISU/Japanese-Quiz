@@ -452,7 +452,7 @@ def vocabQuizMLJP1():
                      Question("China", "ちゅうごく", "chuugoku", "中国"), Question("English", "えいご", "eigo", "英語"), Question("Economics", "けいざい", "keizai", "経済"), 
                      Question("Computer", "コンピュータ", "konpyuuta"), Question("Business", "ビジネス", "bijinesu"), Question("History", "れきし", "rekishi", "歴史"),
                      Question("Mother", "おかあさん", "okaasan", "お母さん"), Question("Father", "お父さん", "otousan", "お父さん"), 
-                     Question("Welcome To The Store", "いらっしゃいませ", "irasshamase"), Question("Please", "おねがいします", "onegaishimasu", "お願いします"), 
+                     Question("Welcome", "いらっしゃいませ", "irasshamase", context="To A Store"), Question("Please", "おねがいします", "onegaishimasu", "お願いします"), 
                      Question("Please Give Me", "ください", "kudasai"), Question("Then/If That Is The Case", "じゃあ", "jaa"), Question("Here It Is", "どうぞ", "douzo"), 
                      Question("Thank-you", "どうも", "doumo", context="Informal Version") ]
 
