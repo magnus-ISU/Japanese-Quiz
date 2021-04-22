@@ -24,8 +24,8 @@ As stated above, this script will provide you with a quiz based on the quiz type
 | `Hiragana (ひらがな)`	      | Quizzes a user on Hiragana characters. |
 | `Katakana (カタカナ)`        | Quizzes a user on Katakana characters. |
 | `Kanji (漢字)`           | Quizzes a user on Kanji characters. |
+| `Vocab (MLJP201)` | Quizzes on Chapter Vocab from MLJP201 at RIT. |
 | `Hard Vocab`      | Quizzes a user on vocab I taught myself and from other sources. |
-| `Vocab (MLJP201)` | Quizzes on Chapter Vocab from MLJP201 at RIT.  |
 
 **Update**: Japanese sentences can be written/spoken in a bunch of different ways as long as the verb
 comes at the end (and the particles are in the right places). Therefore, I've removed the the phrases 
