@@ -381,7 +381,7 @@ def vocabQuizPrompt(quizList):
             print("\n" + prompt)
             answer = input("What is the Japanese for the word above?: ")
 
-            if (answer.lower() == element.correctAnswer) or element.isAlternate(answer):
+            if (answer.lower() == element.correctAnswer) or (answer.lower() == element.isAlternate(answer)):
                 element.correct(answer, False)
                 score += 1
             else:
