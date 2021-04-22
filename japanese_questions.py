@@ -501,6 +501,29 @@ def vocabQuizMLJP1():
                      Question("Inside", "なか", "naka", "中"), Question("On", "うえ", "ue", "上"), Question("Under/Below", "した", "shita", "下"), 
                      Question("Near/Nearby", "ちかく", "chikaku", "近く"), Question("Next", "となり", "tonari", "隣"), Question("Between", "あいだ", "aida", "間") ]
 
+    # Chapter 5 Vocab. Located on Genki page 130-131.
+    chapter5Vocab = [ Question("Food", "たべもの", "tabemono", "食べ物"), Question("Drink", "のみもの", "nomimono", "飲み物"), Question("Fruit", "くだもの", "kudamono", "果物"), 
+                     Question("Holiday/Day Off/Absense", "やすみ", "yasumi", "休み"), Question("Sea", "うみ", "umi", "海"), Question("Surfing", "サーフィン", "saafin"), 
+                     Question("Souvenir", "おみやげ", "omiyage", "お土産"), Question("Bus", "バス", "basu"), Question("Weather", "てんき", "tenki", "天気"), 
+                     Question("Homework", "しゅくだい", "shukudai", "宿題"), Question("Test", "テスト", "tesuto"), Question("Birthday", "たんじょうび", "tanjoubi", "誕生日"), 
+                     Question("Room", "へや", "heya", "部屋"), Question("I", "ぼく", "boku", "僕", context="Used By Men"), Question("Size L", "Lサイズ", ["lsaizu", "エルサイズ", "erusaizu"]),
+                     Question("New", "あたらしい", "atarashii", "新しい"), Question("Old", "ふるい", "furui", "古い", context="Things - Not Used For People"), 
+                     Question("Hot", "あつい", "atsui", "暑い", context="Weather"), Question("Cold", "さむい", "samui", "寒い", context="Weather"), 
+                     Question("Hot", "熱い", "atsui", "熱い", context="Thing"), Question("Busy", "いそがしい", "isogashii", "忙しい", context="People/Days"), 
+                     Question("Large", "おおきい", "ookii", "大きい"), Question("Small", "ちいさい", "chisai", "小さい"), Question("Interesting/Funny", "おもしろい", "omoshiroi", "面白い"),
+                     Question("Boring", "つまらない", "tsumaranai"), Question("Easy", "やさしい", "yasashii", context="Problem"), Question("Kind", "やさしい", "yasashii", context="Person"), 
+                     Question("Difficult", "むずかしい", "muzukashii", "難しい"), Question("Good-Looking", "かっこいい", "kakkoii"), Question("Frightening", "ぞわい", "kowai", "怖い"),
+                     Question("Fun", "たのしい", "tanoshii", "楽しい"), Question("Inexpensive/Cheap", "やすい", "yasui", "安い", context="Thing"), 
+                     Question("Fond Of/To Like", "すき", ["suki", "すきな", "sukina"], "好き"), Question("Disgusted With/To Dislike", "きらい", ["kirai", "きらいな", "kiraina"], "嫌いな"),
+                     Question("Very Fond Of/To Love", "だいすき", ["daisuki", "だいすきな", "daisukina"], "大好き"), 
+                     Question("To Hate", "だいきらい", ["daikirai", "だいきらいな", "daikiraina"], "大嫌い"), Question("Beautiful/Clean", "きれい", ["kirei", "きれいな", "kireina"]), 
+                     Question("Healthy/Energetic", "げんき", ["genki", "げんきな", "genkina"], "元気"), Question("Quiet", "しずか", ["shizuka", "しずかな", "shizukana"], "静か"),
+                     Question("Lively", "にぎやか", ["nigiyaka", "にぎやかな", "nigiyakana"]), Question("Not Busy/Free", "ひま", ["hima", "ひまな", "himana"], "暇", context="Time"),
+                     Question("To Swim", "およぐ", "oyogu", "泳ぐ"), Question("To Ask", "きく", "kiku", "聞く"), Question("To Ride/To Board", "のる", "noru", "乗る"), 
+                     Question("To Do/To Perform", "やる", "yaru"), Question("To Go Out", "でかける", "dekakeru", "出かける"), Question("Together", "いっしょに", "isshoni", "一緒に"),
+                     Question("Extremely", "すごく", "sugoku"), Question("It's Okay/Not To Worry", "だいじょうぶ", "daijoubu", "大丈夫"), Question("Very", "とても", "totemo"),
+                     Question("What Kind Of", "どんな", "donna"), Question("Counter For Flat Objects", "まい", "mai", "枚") ]
+
     print("Vocab Quiz (MLJP201)\n")
     print("\t1 Chapter 1 Vocabulary")
     print("\t2 Chapter 2 Vocabulary")
@@ -516,6 +539,8 @@ def vocabQuizMLJP1():
         vocabQuizPrompt(chapter3Vocab)
     elif vocabType == "4":
         vocabQuizPrompt(chapter4Vocab)
+    elif vocabType == "5":
+        vocabQuizPrompt(chapter5Vocab)
 
 def hardVocabQuiz():
     """
