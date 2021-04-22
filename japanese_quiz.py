@@ -29,7 +29,9 @@ if __name__ == "__main__":
         print("\t1 Hiragana Quiz (ひらがな)")
         print("\t2 Katakana Quiz (カタカナ)")
         print("\t3 Kanji Quiz (漢字)")
-        print("\t5 Vocab Quizzes (MLJP201)")
+        print("\t4 Vocab Quizzes (MLJP201)")
+        print("\t5 Hard Vocab")
+        print("\n\t-1 To Exit")
         
         print("\n[!] Please note that although a Japanese keyboard isn't required, it is strongly recommended!")
         print("[!] Please also make sure you can see the Japanese characters above!")
@@ -45,7 +47,7 @@ if __name__ == "__main__":
             #japanese_questions.kanjiQuiz()
         elif quizType == "4":
             japanese_questions.vocabQuizMLJP1()
-        #elif quizType == "4":
+        #elif quizType == "5":
             #japanese_questions.hardVocabQuiz()
         else:
             print("[!] This quiz has not been implemented yet.\n\n")
