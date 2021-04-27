@@ -17,7 +17,7 @@ desc: This program will quiz you on a wide range of Japanese words and Kanji. Yo
         is used for writing loanwords and foreign names. Kanji are Chinese characters that were brought to Japan. Kanji represent not 
         just sounds but also meanings.
 """
-import japanese_questions   # Japanese questions.
+import japanese_questions   # Japanese questions
 
 if __name__ == "__main__":
     while True:
@@ -43,8 +43,10 @@ if __name__ == "__main__":
             japanese_questions.hiraganaQuiz()
         elif quizType == "2":
             japanese_questions.katakanaQuiz()
-        #elif quizType == "3":
-            #japanese_questions.kanjiQuiz()
+        elif quizType == "3":
+            result = japanese_questions.kanjiQuiz()
+            if result == -1:
+                break
         elif quizType == "4":
             japanese_questions.vocabQuizMLJP1()
         #elif quizType == "5":

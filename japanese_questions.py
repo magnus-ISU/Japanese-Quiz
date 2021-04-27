@@ -31,12 +31,12 @@ class Question:
 
     def correct(self, answer, englishQuestion):
         """
-        A pointless function to tell the user
+        A function to tell the user
         that they got the answer correct.
 
         :param self: The question object.
         :param answer: The answer the user submitted.
-        :param kanjiQuiz: Whether or not the Kanji Quiz is active.
+        :param englishQuestion: Whether or an English question was given.
         :return: None
         """
         print("Correct! :)")
@@ -48,14 +48,14 @@ class Question:
 
     def incorrect(self, englishQuestion):
         """
-        A pointless function to tell the user
+        A function to tell the user
         that they got the answer incorrect.
 
         :param self: The question object.
-        :param kanjiQuiz: Whether or not the Kanji Quiz is active.
+        :param englishQuestion: Boolean value (Weather or not the question was given in English).
         :return: None
         """
-        print("Incorrect! :/")
+        print("Incorrect! :(")
         print("The correct answer was {}".format(self.correctAnswer))
         
         if self.alternateAnswers is not None:
@@ -114,26 +114,103 @@ class KanjiQuestion:
     """
     Used to define Kanji questions.
     """
-    def __init__(self, question, correctAnswer, alternateAnswers=None, meaning=""):
+    def __init__(self, kanji, hiragana, alternateAnswers=None, meaning=""):
         """
         This function is used to create a KanjiQuestion object.
 
         :param self: The object.
-        :param question: The question prompt.
-        :param correctAnswer: The best, or correct answer. 
+        :param kanji: The kanji prompt.
+        :param hiragana: The best, or correct answer in Hiragana. 
         :param alternateAnswers: Other accepted answers.
         :param meaning: The meaning of the Kanji.
         """
-        self.question = question
-        self.correctAnswer = correctAnswer
-        self.alternateAnwsers = alternateAnswers
+        self.kanji = kanji
+        self.hiragana = hiragana
+        self.alternateAnswers = alternateAnswers
         self.meaning = meaning
 
-    def correct(self):
-        pass
+    def isCorrect(self, hiragana, meaning):
+        """
+        A function that determines how many points the
+        user earned and which part of the answer is wrong.
 
-    def incorrect(self):
-        pass
+        :param self: The question object.
+        :param hiragana: The hiragana of the Kanji
+        :param meaning: The meaning of the Kanji.
+        :return: 3 different return types. 0 means the answer was wrong, 1 means the answer was half correct, and 2 means the answer was correct.
+                    This function will also return the wrong answer (If there is one).
+        """
+        c_hiragana = self.hiragana
+        c_meaning = self.meaning
+        wrongAnswer = None
+
+        p = 0
+        if c_hiragana == hiragana:
+            p += 1
+        else:
+            if type(self.alternateAnswers) == list:
+                if hiragana in self.alternateAnswers:
+                    p += 1
+                else:
+                    wrongAnswer = self.hiragana
+            else:
+                if hiragana == self.alternateAnswers:
+                    p += 1
+                else:
+                    wrongAnswer = self.hiragana
+
+        if c_meaning.lower() == meaning.lower():
+            p += 1
+        else:
+            wrongAnswer = self.meaning
+
+        return (p, wrongAnswer)
+
+    def correct(self):
+        """
+        A pointless function to tell the user
+        their answer was correct.
+
+        :param self: The question object.
+        :return: None
+        """
+        print("Correct! :)")
+
+    def halfCorrect(self, wrong):
+        """
+        A function that will print out which part was
+        right and which part was wrong.
+
+        :param self: The question object.
+        :param wrong: The part of the answer the user got wrong.
+        :return: None
+        """
+        print("Almost! :/")
+    
+        if isHiragana(wrong):
+            print("You got the ひらがな wrong!")
+            print("{} was the correct answer!".format(self.hiragana))
+        else:
+            print("You got the meaning wrong!")
+            print("{} was the correct answer!".format(self.meaning))
+
+    def incorrect(self, meaningGiven):
+        """
+        A function to tell the user
+        that they got the answer incorrect.
+
+        :param self: The question object.
+        :param meaningGiven: Boolean value (Weather or not the meaning of the Kanji was given).
+        :return: None
+        """
+        print("Incorrect! :(")
+
+        if meaningGiven:
+            print("The correct answer was {}".format(self.kanji))
+            print("The ひらがな for this Kanji is {}!".format(self.hiragana))
+        else:
+            print("The correct ひらがな is {}".format(self.hiragana))
+            print("This Kanji means {}".format(self.meaning))
 
 def calculateScore(score, max_score):
     """
@@ -222,12 +299,13 @@ def isKatakana(str):
             return False
     return True
 
-def hasJapaneseKeyboard():
+def hasJapaneseKeyboard(kanjiQuiz):
     """
     This function is used to determine whether or not the user
     has a Japanese keyboard installed. If they do they'll be asked
     to set it up before continuing.
     
+    :param kanjiQuiz: Boolean value (Weather or not the current quiz is a Kanji Quiz).
     :return: Boolean Flag (True = Has Japanese Keyboard)
     """
     while True:
@@ -246,9 +324,12 @@ def hasJapaneseKeyboard():
             continue
             
     elif flag.lower() == "n":
-        flag = False
-        print("[!] You will only be asked to type Romaji!")
-        print("[!] Set up a Japanese keyboard for the full experience! :)")
+        if kanjiQuiz:
+            flag = False
+        else:
+            flag = False
+            print("[!] You will only be asked to type Romaji!")
+            print("[!] Set up a Japanese keyboard for the full experience! :)")
 
     return flag
 
@@ -261,7 +342,7 @@ def hiraganaQuiz():
     :return: None
     """
     print("Hiragana Quiz\n")
-    hasJapaneseKeyboard()
+    hasJapaneseKeyboard(False)
 
     hiragana = [ Question("あ", "a"), Question("い", "i"), Question("う", "u"), Question("え", "e"), Question("お", "o"),
                     Question("か", "ka"), Question("き", "ki"), Question("く", "ku"), Question("け", "ke"), Question("こ", "ko"),
@@ -306,7 +387,7 @@ def katakanaQuiz():
     :return: None
     """
     print("Katakana Quiz (カタカナ)\n")
-    hasJapaneseKeyboard()
+    hasJapaneseKeyboard(False)
 
     katakana = [ Question("ア", "a"), Question("イ", "i"), Question("ウ", "u"), Question("エ", "e"), Question("オ", "o"),
                     Question("カ", "ka"), Question("キ", "ki"), Question("ク", "ku"), Question("ケ", "ke"), Question("コ", "ko"),
@@ -342,15 +423,89 @@ def katakanaQuiz():
 
     calculateScore(score, max_score)
 
-def startHomeworkVocabQuiz():
+def kanjiQuizPrompt(quizList):
     """
-    This function will start a quiz based on words/phrases given in the
-    homework. The user will get to choose what chapter they want to be
-    quizzed from.
+    This function will print the prompt for each Kanji quiz.
 
+    :param quizList: The kanji quiz list (lesson).
     :return: None
     """
-    pass
+    flag = hasJapaneseKeyboard(True)
+    if not flag:
+        print("[!] This quiz requires a Japanese keyboard.")
+        return -1
+
+    input("\nThe quiz is about to begin! Press any key to start...")
+    score = 0
+    max_score = 0
+
+    random.shuffle(quizList)
+    for element in quizList:
+            choice = random.randint(0, 1)
+
+            if choice == 0:
+                print("\n" + element.kanji)
+                h = input("Enter the Hiragana of this Kanji?: ")
+                m = input("What does this Kanji mean?: ")
+                max_score += 2
+
+                (points, wrong) = element.isCorrect(h, m)
+                if points == 0:
+                    element.incorrect(False)
+                elif points == 1:
+                    element.halfCorrect(wrong)
+                    score += 1
+                else:
+                    element.correct()
+                    score += 2
+            else:
+                print("\n" + element.meaning)
+                a = input("What is the Kanji for the word above?: ")
+                max_score += 1
+
+                if a == element.kanji:
+                    element.correct()
+                    score += 1
+                else:
+                    element.incorrect(True)
+        
+    # Calculates the users final score.
+    calculateScore(score, max_score)
+
+def kanjiQuiz():
+    """
+    This function will start the Kanji quiz. For now the only Kanji
+    included are the ones taught in MLJP201 at RIT. Kanji is taken
+    from this link: http://genki.japantimes.co.jp/self/genki-kanji-list-linked-to-wwkanji
+
+    :return: None (If -1 is returned, the user does not have a Japanese keyboard).
+    """
+   
+    lesson3 = [ KanjiQuestion("一", "いち", None, "One"), KanjiQuestion("ニ", "に", None, "Two"), KanjiQuestion("三", "さん", None, "Three"), KanjiQuestion("四", "よん", "し", "Four"),
+               KanjiQuestion("五", "ご", None, "Five"), KanjiQuestion("六", "ろく", None, "Six"), KanjiQuestion("七", "なな", "しち", "Seven"), KanjiQuestion("八", "はち", None, "Eight"),
+               KanjiQuestion("九", "きゅう", None, "Nine"), KanjiQuestion("十", "じゅう", None, "Ten"), KanjiQuestion("百", "ひゃく", ["びゃく", "ぴゃく"], "Hundred"), 
+               KanjiQuestion("千", "せん", "ぜん", "Thousand"), KanjiQuestion("万", "まん", None, "Ten Thousand"), KanjiQuestion("円", "えん", None, "Yen/Money/Currency"), 
+               KanjiQuestion("時", "じ", "とき", "Time") ]
+
+    lesson4 = [ KanjiQuestion("日", "にち", "に", "Day"), KanjiQuestion("本", "ほん", "もと", "Book"), KanjiQuestion("人", "じん", "ひと", "Person/People"), 
+               KanjiQuestion("月", "げつ", "つき", "Month/Moon"), KanjiQuestion("火", "か", "ひ", "Fire"), KanjiQuestion("水", "みず", "すい", "Water"), KanjiQuestion("木", "き", "もく", "Tree"),
+               KanjiQuestion("金", "きん", "かね", "Money/Gold"), KanjiQuestion("土", "ど", "つち", "Ground/Soil"), KanjiQuestion("曜", "よう", None, "Weekday"),
+               KanjiQuestion("上", "うえ", None, "Above/On"), KanjiQuestion("下" "した", None, "Below/Under"), KanjiQuestion("中", "なか", "ちゅう", "Inside"),
+               KanjiQuestion("半", "はん", None, "Half") ]
+
+    print("Kanji Quiz (MLJP201)\n")
+    print("\t1 Lesson 3")
+    print("\t2 Lesson 4")
+    print("\ta All MLJP201 Kanji")
+    kanjiType = input("\n[+] What quiz would you like to take?: ")
+
+    if kanjiType == "1":
+        kanjiQuizPrompt(lesson3)
+    elif kanjiType == "2":
+        kanjiQuizPrompt(lesson4)
+    else:
+        print("[!] You did not enter a valid option.")
+        return -1
 
 def vocabQuizPrompt(quizList):
     """
@@ -359,7 +514,7 @@ def vocabQuizPrompt(quizList):
     :param quizList: The vocab quiz list (chapter).
     :return: None
     """
-    flag = hasJapaneseKeyboard()
+    flag = hasJapaneseKeyboard(False)
 
     input("\nThe quiz is about to begin! Press any key to start...")
     score = 0
@@ -392,8 +547,8 @@ def vocabQuizPrompt(quizList):
             print("\n" + element.question)
             answer = input("What is the English for the word above?: ")
 
-            c = element.correctAnswer.lower().split("/")
-            if (answer.lower() in c):
+            c = element.correctAnswer.split("/")
+            if (answer.lower() in c.lower()):
                 element.correct(answer, False)
                 score += 1
             else:
@@ -509,9 +664,9 @@ def vocabQuizMLJP1():
                      Question("Room", "へや", "heya", "部屋"), Question("I", "ぼく", "boku", "僕", context="Used By Men"), Question("Size L", "Lサイズ", ["lsaizu", "エルサイズ", "erusaizu"]),
                      Question("New", "あたらしい", "atarashii", "新しい"), Question("Old", "ふるい", "furui", "古い", context="Things - Not Used For People"), 
                      Question("Hot", "あつい", "atsui", "暑い", context="Weather"), Question("Cold", "さむい", "samui", "寒い", context="Weather"), 
-                     Question("Hot", "熱い", "atsui", "熱い", context="Thing"), Question("Busy", "いそがしい", "isogashii", "忙しい", context="People/Days"), 
+                     Question("Hot", "あつい", "atsui", "熱い", context="Thing"), Question("Busy", "いそがしい", "isogashii", "忙しい", context="People/Days"), 
                      Question("Large", "おおきい", "ookii", "大きい"), Question("Small", "ちいさい", "chisai", "小さい"), Question("Interesting/Funny", "おもしろい", "omoshiroi", "面白い"),
-                     Question("Boring", "つまらない", "tsumaranai"), Question("Easy", "やさしい", "yasashii", context="Problem"), Question("Kind", "やさしい", "yasashii", context="Person"), 
+                     Question("Boring", "つまらない", "tsumaranai"), Question("Kind/Easy", "やさしい", "yasashii", context="Person/Problem"), 
                      Question("Difficult", "むずかしい", "muzukashii", "難しい"), Question("Good-Looking", "かっこいい", "kakkoii"), Question("Frightening", "ぞわい", "kowai", "怖い"),
                      Question("Fun", "たのしい", "tanoshii", "楽しい"), Question("Inexpensive/Cheap", "やすい", "yasui", "安い", context="Thing"), 
                      Question("Fond Of/To Like", "すき", ["suki", "すきな", "sukina"], "好き"), Question("Disgusted With/To Dislike", "きらい", ["kirai", "きらいな", "kiraina"], "嫌いな"),
@@ -529,6 +684,7 @@ def vocabQuizMLJP1():
     print("\t2 Chapter 2 Vocabulary")
     print("\t3 Chapter 3 Vocabulary")
     print("\t4 Chapter 4 Vocabulary")
+    print("\t5 Chapter 5 Vocabulary")
     vocabType = input("\n[+] What quiz would you like to take?: ")
 
     if vocabType == "1":
