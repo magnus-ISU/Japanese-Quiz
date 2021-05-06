@@ -492,21 +492,23 @@ def kanjiQuiz():
                KanjiQuestion("中", "なか", "ちゅう", "Inside"), KanjiQuestion("半", "はん", None, "Half") ]
 
     lesson5 = [ KanjiQuestion("山", "やま", "さん", "Mountain"), KanjiQuestion("川", "かわ", "がわ", "River"), KanjiQuestion("元", "げん", ["がん", "もと"], "Origin"), 
-               KanjiQuestion("", "", "", ""), KanjiQuestion("", "", "", ""), KanjiQuestion("", "", "", ""), 
-               KanjiQuestion("", "", "", ""), KanjiQuestion("", "", "", ""), KanjiQuestion("", "", "", ""), 
-               KanjiQuestion("", "", None, ""), KanjiQuestion("", "", None, ""), KanjiQuestion("" "", None, ""), 
-               KanjiQuestion("", "", "", ""), KanjiQuestion("", "", None, "") ]
+               KanjiQuestion("気", "き", None, "Spirit"), KanjiQuestion("天", "てん", None, "Heaven"), KanjiQuestion("私", "わたし", "し", "I/Private"), 
+               KanjiQuestion("今", "いま", "こん", "Now"), KanjiQuestion("田", "た", "だ", "Rice Field"), KanjiQuestion("女", "おんな", "じょ", "Woman"), 
+               KanjiQuestion("男", "おとこ", "だん", "Man"), KanjiQuestion("見", "み", "けん", "To See"), KanjiQuestion("行", "い", ["こう", "ぎょう"], "To Go"), 
+               KanjiQuestion("食", "た", "しょく", "To Eat"), KanjiQuestion("飲", "の", "いん", "To Drink") ]
 
     print("Kanji Quiz (MLJP201)\n")
     print("\t1 Lesson 3")
     print("\t2 Lesson 4")
-    print("\ta All MLJP201 Kanji")
+    print("\t3 Lesson 5")
     kanjiType = input("\n[+] What quiz would you like to take?: ")
 
     if kanjiType == "1":
         kanjiQuizPrompt(lesson3)
     elif kanjiType == "2":
         kanjiQuizPrompt(lesson4)
+    elif kanjiType == "3":
+        kanjiQuizPrompt(lesson5)
     else:
         print("[!] You did not enter a valid option.")
         return -1
