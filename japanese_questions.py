@@ -157,7 +157,9 @@ class KanjiQuestion:
                 else:
                     wrongAnswer = self.hiragana
 
-        if c_meaning.lower() == meaning.lower():
+        c = c_meaning.split("/")
+        c = [ans.lower() for ans in c]
+        if meaning.lower() in c:
             p += 1
         else:
             wrongAnswer = self.meaning
