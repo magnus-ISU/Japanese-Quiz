@@ -542,7 +542,7 @@ def vocabQuizPrompt(quizList):
             print("\n" + prompt)
             answer = input("What is the Japanese for the word above?: ")
 
-            if (answer.lower() == element.correctAnswer) or (answer.lower() == element.isAlternate(answer)) or (answer == element.kanji):
+            if (answer.lower() == element.correctAnswer) or (element.isAlternate(answer)) or (answer == element.kanji):
                 element.correct(answer, True)
                 score += 1
             else:
