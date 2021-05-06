@@ -82,8 +82,6 @@ class Question:
                 return True
             elif type(self.alternateAnswers) == str and response.lower() == self.alternateAnswers:
                 return True
-        if self.kanji is not None and response == self.kanji:
-            return True
         return False
 
     def reverseQuestion(self, quizType):
@@ -488,10 +486,16 @@ def kanjiQuiz():
                KanjiQuestion("時", "じ", "とき", "Time") ]
 
     lesson4 = [ KanjiQuestion("日", "にち", "に", "Day"), KanjiQuestion("本", "ほん", "もと", "Book"), KanjiQuestion("人", "じん", "ひと", "Person/People"), 
-               KanjiQuestion("月", "げつ", "つき", "Month/Moon"), KanjiQuestion("火", "か", "ひ", "Fire"), KanjiQuestion("水", "みず", "すい", "Water"), KanjiQuestion("木", "き", "もく", "Tree"),
-               KanjiQuestion("金", "きん", "かね", "Money/Gold"), KanjiQuestion("土", "ど", "つち", "Ground/Soil"), KanjiQuestion("曜", "よう", None, "Weekday"),
-               KanjiQuestion("上", "うえ", None, "Above/On"), KanjiQuestion("下" "した", None, "Below/Under"), KanjiQuestion("中", "なか", "ちゅう", "Inside"),
-               KanjiQuestion("半", "はん", None, "Half") ]
+               KanjiQuestion("月", "げつ", "つき", "Month/Moon"), KanjiQuestion("火", "か", "ひ", "Fire"), KanjiQuestion("水", "みず", "すい", "Water"), 
+               KanjiQuestion("木", "き", "もく", "Tree"), KanjiQuestion("金", "きん", "かね", "Money/Gold"), KanjiQuestion("土", "ど", "つち", "Ground/Soil"), 
+               KanjiQuestion("曜", "よう", None, "Weekday"), KanjiQuestion("上", "うえ", None, "Above/On"), KanjiQuestion("下", "した", None, "Below/Under"), 
+               KanjiQuestion("中", "なか", "ちゅう", "Inside"), KanjiQuestion("半", "はん", None, "Half") ]
+
+    lesson5 = [ KanjiQuestion("山", "やま", "さん", "Mountain"), KanjiQuestion("川", "かわ", "がわ", "River"), KanjiQuestion("元", "げん", ["がん", "もと"], "Origin"), 
+               KanjiQuestion("", "", "", ""), KanjiQuestion("", "", "", ""), KanjiQuestion("", "", "", ""), 
+               KanjiQuestion("", "", "", ""), KanjiQuestion("", "", "", ""), KanjiQuestion("", "", "", ""), 
+               KanjiQuestion("", "", None, ""), KanjiQuestion("", "", None, ""), KanjiQuestion("" "", None, ""), 
+               KanjiQuestion("", "", "", ""), KanjiQuestion("", "", None, "") ]
 
     print("Kanji Quiz (MLJP201)\n")
     print("\t1 Lesson 3")
@@ -536,7 +540,7 @@ def vocabQuizPrompt(quizList):
             print("\n" + prompt)
             answer = input("What is the Japanese for the word above?: ")
 
-            if (answer.lower() == element.correctAnswer) or (answer.lower() == element.isAlternate(answer)):
+            if (answer.lower() == element.correctAnswer) or (answer.lower() == element.isAlternate(answer)) or (answer == element.kanji):
                 element.correct(answer, False)
                 score += 1
             else:
@@ -547,8 +551,8 @@ def vocabQuizPrompt(quizList):
             print("\n" + element.question)
             answer = input("What is the English for the word above?: ")
 
-            c = element.correctAnswer.split("/")
-            if (answer.lower() in c.lower()):
+            c = element.correctAnswer.lower().split("/")
+            if (answer.lower() in c):
                 element.correct(answer, False)
                 score += 1
             else:
@@ -667,9 +671,9 @@ def vocabQuizMLJP1():
                      Question("Hot", "あつい", "atsui", "熱い", context="Thing"), Question("Busy", "いそがしい", "isogashii", "忙しい", context="People/Days"), 
                      Question("Large", "おおきい", "ookii", "大きい"), Question("Small", "ちいさい", "chisai", "小さい"), Question("Interesting/Funny", "おもしろい", "omoshiroi", "面白い"),
                      Question("Boring", "つまらない", "tsumaranai"), Question("Kind/Easy", "やさしい", "yasashii", context="Person/Problem"), 
-                     Question("Difficult", "むずかしい", "muzukashii", "難しい"), Question("Good-Looking", "かっこいい", "kakkoii"), Question("Frightening", "ぞわい", "kowai", "怖い"),
+                     Question("Difficult", "むずかしい", "muzukashii", "難しい"), Question("Good-Looking", "かっこいい", "kakkoii"), Question("Frightening", "こわい", "kowai", "怖い"),
                      Question("Fun", "たのしい", "tanoshii", "楽しい"), Question("Inexpensive/Cheap", "やすい", "yasui", "安い", context="Thing"), 
-                     Question("Fond Of/To Like", "すき", ["suki", "すきな", "sukina"], "好き"), Question("Disgusted With/To Dislike", "きらい", ["kirai", "きらいな", "kiraina"], "嫌いな"),
+                     Question("Fond Of/To Like", "すき", ["suki", "すきな", "sukina"], "好き"), Question("Disgusted With/To Dislike", "きらい", ["kirai", "きらいな", "kiraina"], "嫌い"),
                      Question("Very Fond Of/To Love", "だいすき", ["daisuki", "だいすきな", "daisukina"], "大好き"), 
                      Question("To Hate", "だいきらい", ["daikirai", "だいきらいな", "daikiraina"], "大嫌い"), Question("Beautiful/Clean", "きれい", ["kirei", "きれいな", "kireina"]), 
                      Question("Healthy/Energetic", "げんき", ["genki", "げんきな", "genkina"], "元気"), Question("Quiet", "しずか", ["shizuka", "しずかな", "shizukana"], "静か"),
