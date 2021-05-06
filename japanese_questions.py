@@ -554,6 +554,8 @@ def vocabQuizPrompt(quizList):
             answer = input("What is the English for the word above?: ")
 
             c = element.correctAnswer.split("/")
+            c = [ans.lower() for ans in c]
+
             if (answer.lower() in c):
                 element.correct(answer, False)
                 score += 1
@@ -650,7 +652,7 @@ def vocabQuizMLJP1():
                      Question("Hospital", "びょういん", "byouin", "病院"), Question("Hotel", "ホテル", "hoteru"), Question("Bookstore", "ほんや", "honya", "本屋"), 
                      Question("Town/City", "まち", "machi", "町"), Question("Resturant", "レストラン", "resutoran"), Question("Yesterday", "きのう", "kinou", "昨日"),
                      Question("Hours", "じかん", "jikan", "時間"), Question("One Hour", "いちじかん", "ichijikan", "一時間"), Question("Last Week", "せんしゅう", "senshuu", "先週"),
-                     Question("When/At The Time Of", "とき", "toki", "時"), Question("Monday", "げつように", "getsuyoubi", "月曜日"), Question("Tuesday", "かようび", "kayoubi", "火曜日"),
+                     Question("When/At The Time Of", "とき", "toki", "時"), Question("Monday", "げつようび", "getsuyoubi", "月曜日"), Question("Tuesday", "かようび", "kayoubi", "火曜日"),
                      Question("Wednesday", "すいようび", "suiyoubi", "水曜日"), Question("Thursday", "もくようび", "mokuyoubi", "木曜日"), 
                      Question("Friday", "きんようび", "kinyoubi", "金曜日"), Question("To Meet/To See", "あう", "au", "会う", context="To Meet A Person"), Question("There Is", "ある", "aru"),
                      Question("To Buy", "かう", "kau", "買う"), Question("To Write", "かく", "kaku", "書く"), Question("To Take", "とる", "toru", "撮る", context="To Take a Picture"), 
@@ -671,7 +673,7 @@ def vocabQuizMLJP1():
                      Question("New", "あたらしい", "atarashii", "新しい"), Question("Old", "ふるい", "furui", "古い", context="Things - Not Used For People"), 
                      Question("Hot", "あつい", "atsui", "暑い", context="Weather"), Question("Cold", "さむい", "samui", "寒い", context="Weather"), 
                      Question("Hot", "あつい", "atsui", "熱い", context="Thing"), Question("Busy", "いそがしい", "isogashii", "忙しい", context="People/Days"), 
-                     Question("Large", "おおきい", "ookii", "大きい"), Question("Small", "ちいさい", "chisai", "小さい"), Question("Interesting/Funny", "おもしろい", "omoshiroi", "面白い"),
+                     Question("Large", "おおきい", "ookii", "大きい"), Question("Small", "ちいさい", "chiisai", "小さい"), Question("Interesting/Funny", "おもしろい", "omoshiroi", "面白い"),
                      Question("Boring", "つまらない", "tsumaranai"), Question("Kind/Easy", "やさしい", "yasashii", context="Person/Problem"), 
                      Question("Difficult", "むずかしい", "muzukashii", "難しい"), Question("Good-Looking", "かっこいい", "kakkoii"), Question("Frightening", "こわい", "kowai", "怖い"),
                      Question("Fun", "たのしい", "tanoshii", "楽しい"), Question("Inexpensive/Cheap", "やすい", "yasui", "安い", context="Thing"), 
