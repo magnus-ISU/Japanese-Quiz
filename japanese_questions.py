@@ -42,7 +42,7 @@ class Question:
         print("Correct! :)")
 
         # There is no need to display the Kanji if the Kanji Quiz is active.
-        if not englishQuestion:
+        if englishQuestion:
             if (isHiragana(answer) or isKatakana(answer)) and (self.kanji is not None):
                 print("The Kanji (漢字) for this word is {}".format(self.kanji))
 
@@ -543,7 +543,7 @@ def vocabQuizPrompt(quizList):
             answer = input("What is the Japanese for the word above?: ")
 
             if (answer.lower() == element.correctAnswer) or (answer.lower() == element.isAlternate(answer)) or (answer == element.kanji):
-                element.correct(answer, False)
+                element.correct(answer, True)
                 score += 1
             else:
                 element.incorrect(False)
@@ -553,7 +553,7 @@ def vocabQuizPrompt(quizList):
             print("\n" + element.question)
             answer = input("What is the English for the word above?: ")
 
-            c = element.correctAnswer.lower().split("/")
+            c = element.correctAnswer.split("/")
             if (answer.lower() in c):
                 element.correct(answer, False)
                 score += 1
