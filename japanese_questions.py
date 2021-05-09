@@ -223,10 +223,10 @@ def calculateScore(score, max_score):
     """
     n_score = (score/max_score)*100
 
-    if n_score < 80:
+    if n_score >= 80:
         print("\n[!] Congrats you scored {:03.2f}!".format(n_score))
         print("[!] You got {} wrong!".format(max_score-score))
-    elif n_score < 70:
+    elif n_score >= 70:
         print("\n[!] Nice try! You scored {:03.2f}!".format(n_score))
         print("[!] You got {} wrong!".format(max_score-score))
     else:
@@ -606,17 +606,17 @@ def vocabQuizMLJP1():
                      Question("This", "この", "kono"), Question("That", "その", "sono"), Question("That Over There", "あの", "ano"), Question("Which", "どの", "dono"), 
                      Question("Here", "ここ", "koko"), Question("There", "そこ", "soko"), Question("Over There", "あそこ", "asoko"), Question("Where", "どこ", "doko"), 
                      Question("Who", "だれ", "dare"), Question("Delicious", "おいしい", "oishii", "美味しい"), Question("Fish", "さかな", "sakana", "魚"), 
-                     Question("Pork Cutlet" "とんかつ", "tonkatsu"), Question("Meat", "にく", "niku", "肉"), Question("Menu", "メニュー", "menyuu"),
+                     Question("Pork Cutlet", "とんかつ", "tonkatsu"), Question("Meat", "にく", "niku", "肉"), Question("Menu", "メニュー", "menyuu"),
                      Question("Vegetables", "やさい", "ysai", "野菜"), Question("Umbrella", "かさ", "kasa", "傘"), Question("Bag", "かばん", "kaban", "鞄"), 
                      Question("Shoes", "くつ", "kutsu", "靴"), Question("Wallet", "さいふ", "saifu", "財布"), Question("Jeans", "ジーンズ", "jiinsu"), 
                      Question("Bicycle", "じてんしゃ", "jitensha", "自転車"), Question("Newspaper", "しんぶん", "shinbun", "新聞"), Question("Smartphone/Mobile", "スマホ", "sumaho"),
-                     Question("T-Shirt", "Ｔシャツ", "tiishatsu"), Question("Watch/Clock", "とけい", "tokei", "時計"), Question("Notebook", "ノート", "nooto"), Question("Pen", "ぺん", "pen"),
+                     Question("T-Shirt", "Ｔシャツ", ["Ｔシャツ", "tiishatsu"]), Question("Watch/Clock", "とけい", "tokei", "時計"), Question("Notebook", "ノート", "nooto"), Question("Pen", "ぺん", "pen"),
                      Question("Hat/Cap", "ぼうし", "boushi", "防止"), Question("Book", "ほん", "hon", "本"), Question("Bank", "ぎんこう", "ginkou", "銀行"), 
                      Question("Convenience Store", "コンビニ", "konbini"), Question("Toilet/Restroom", "トイレ", "toire"), Question("Library", "としょかん", "toshokan", "図書館"),
                      Question("Post Office", "ゆうびんきょく", ["yuubinkyoku", "郵便局"]), Question("Britian", "イギリス", "igirisu"), Question("Korea", "かんこく", ["kankoku", "韓国"]),
                      Question("China", "ちゅうごく", "chuugoku", "中国"), Question("English", "えいご", "eigo", "英語"), Question("Economics", "けいざい", "keizai", "経済"), 
                      Question("Computer", "コンピュータ", "konpyuuta"), Question("Business", "ビジネス", "bijinesu"), Question("History", "れきし", "rekishi", "歴史"),
-                     Question("Mother", "おかあさん", "okaasan", "お母さん"), Question("Father", "お父さん", "otousan", "お父さん"), 
+                     Question("Mother", "おかあさん", "okaasan", "お母さん"), Question("Father", "おとうさん", "otousan", "お父さん"), 
                      Question("Welcome", "いらっしゃいませ", "irasshamase", context="To A Store"), Question("Please", "おねがいします", "onegaishimasu", "お願いします"), 
                      Question("Please Give Me", "ください", "kudasai"), Question("Then/If That Is The Case", "じゃあ", "jaa"), Question("Here It Is", "どうぞ", "douzo"), 
                      Question("Thank-you", "どうも", "doumo", context="Informal Version") ]
