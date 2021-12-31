@@ -7,6 +7,7 @@ file: japanese_questions.py
 desc: This program contains the questions that japanese_quiz.py will utilize.
 """
 import random   # Used to randomly shuffle question.
+from colorama import Fore
 
 class Question:
     """
@@ -39,7 +40,7 @@ class Question:
         :param englishQuestion: Whether or an English question was given.
         :return: None
         """
-        print("Correct! :)")
+        print(Fore.GREEN + "そのとおりです。" + Fore.RESET)
 
         # There is no need to display the Kanji if the Kanji Quiz is active.
         if englishQuestion:
@@ -55,15 +56,15 @@ class Question:
         :param englishQuestion: Boolean value (Weather or not the question was given in English).
         :return: None
         """
-        print("Incorrect! :(")
+        print(Fore.RED + "Incorrect! :(" + Fore.RESET)
         print("The correct answer was {}".format(self.correctAnswer))
-        
+
         if self.alternateAnswers is not None:
             if type(self.alternateAnswers) == list:
                 print("{} were also accepted answers!".format(self.alternateAnswers))
             else:
                 print("{} was also an accepted answers!".format(self.alternateAnswers))
-        
+
         if englishQuestion:
             if self.kanji is not None:
                 print("{} was the accepted Kanji answer!".format(self.kanji))
@@ -174,7 +175,7 @@ class KanjiQuestion:
         :param self: The question object.
         :return: None
         """
-        print("Correct! :)")
+        print(Fore.GREEN + "そのとおりです。" + Fore.RESET)
 
     def halfCorrect(self, wrong):
         """
@@ -221,19 +222,8 @@ def calculateScore(score, max_score):
     :param max_score: The max score for the quiz.
     :return: None
     """
-    n_score = (score/max_score)*100
-
-    if n_score >= 80:
-        print("\n[!] Congrats you scored {:03.2f}!".format(n_score))
-        print("[!] You got {} wrong!".format(max_score-score))
-    elif n_score >= 70:
-        print("\n[!] Nice try! You scored {:03.2f}!".format(n_score))
-        print("[!] You got {} wrong!".format(max_score-score))
-    else:
-        print("\n[!] You scored {:03.2f}! Keep practicing!".format(n_score))
-        print("[!] You got {} wrong!".format(max_score-score))
-
-    input("[!] Press any key to continue...")
+    print(f"\n[!] {score}/ {max_score} 正解しました。")
+    input("[!] 何かキーを押すと続行します。")
 
 def isHiragana(str):
     """
@@ -302,55 +292,31 @@ def isKatakana(str):
 def hasJapaneseKeyboard(kanjiQuiz):
     """
     This function is used to determine whether or not the user
-    has a Japanese keyboard installed. If they do they'll be asked
-    to set it up before continuing.
+    has a Japanese keyboard installed. If they do they'll not have their
+    time wasted any further
     
     :param kanjiQuiz: Boolean value (Weather or not the current quiz is a Kanji Quiz).
     :return: Boolean Flag (True = Has Japanese Keyboard)
     """
-    while True:
-        flag = input("Do you have a Japanese keyboard installed? (y/n): ")
+    flag = input("Do you have a Japanese keyboard installed? (Y/n): ")
         
-        if flag.lower() == "y" or flag.lower() == "n":
-            break
-
-    if flag.lower() == "y":
-        flag = True
-        print("[!] You will be asked to type in Japanese Writing Script(s)!")
-        wait = input("[!] Please get your Japanese keyboard setup and enter `y` when ready: ")
-        
-        while wait.lower() != "y":
-            wait = input("[!] Please get your Japanese keyboard setup and enter `y` when ready: ")
-            continue
-            
-    elif flag.lower() == "n":
-        if kanjiQuiz:
-            flag = False
-        else:
-            flag = False
+    if flag.lower() == "n":
+        if not kanjiQuiz:
             print("[!] You will only be asked to type Romaji!")
             print("[!] Set up a Japanese keyboard for the full experience! :)")
-
-    return flag
+        return False
+    else:
+        print("[!] 素晴らしいです。")
+        return True
 
 def hiraganaQuiz():
-    """
-    This function is for the Hiragana Quiz. You'll only be tested on
-    Hiragana characters. You'll either need to enter the Hiragana
-    Character or write the Romaji (romanized version, i.e. だ = da).
-
-    :return: None
-    """
-    print("Hiragana Quiz\n")
-    hasJapaneseKeyboard(False)
-
     hiragana = [ Question("あ", "a"), Question("い", "i"), Question("う", "u"), Question("え", "e"), Question("お", "o"),
                     Question("か", "ka"), Question("き", "ki"), Question("く", "ku"), Question("け", "ke"), Question("こ", "ko"),
                     Question("が", "ga"), Question("ぎ", "gi"), Question("ぐ", "gu"), Question("げ", "ge"), Question("ご", "go"),
                     Question("さ", "sa"), Question("し", "shi"), Question("す", "su"), Question("せ", "se"), Question("そ", "so"),
                     Question("ざ", "za"), Question("じ", "ji"), Question("ず", "zu"), Question("ぜ", "ze"), Question("ぞ", "zo"),
                     Question("た", "ta"), Question("ち", "chi"), Question("つ", "tsu"), Question("て", "te"), Question("と", "to"),
-                    Question("だ", "da"), Question("ぢ", "ji"), Question("づ", "zu"), Question("で", "de"), Question("ど", "do"),
+                    Question("だ", "da"), Question("ぢ", "ji"), Question("づ", "zu", "du"), Question("で", "de"), Question("ど", "do"),
                     Question("な", "na"), Question("に", "ni"), Question("ぬ", "nu"), Question("ね", "ne"), Question("の", "no"),
                     Question("は", "ha"), Question("ひ", "hi"), Question("ふ", "fu", "hu"), Question("へ", "he"), Question("ほ", "ho"),
                     Question("ば", "ba"), Question("び", "bi"), Question("ぶ", "bu"), Question("べ", "be"), Question("ぼ", "bo"),
@@ -360,42 +326,16 @@ def hiraganaQuiz():
                     Question("ら", "ra"), Question("り", "ri"), Question("る", "ru"), Question("れ", "re"), Question("ろ", "ro"),
                     Question("わ", "wa"), Question("を", "wo"), 
                     Question("ん", "n") ]
-
-    input("\nThe quiz is about to begin! Press any key to start...")
-    score = 0
-    max_score = len(hiragana)
-
-    random.shuffle(hiragana)
-    for element in hiragana:
-        print("\n" + element.question)
-        answer = input("What character is this?: ")
-
-        if (answer.lower() == element.correctAnswer.lower()) or element.isAlternate(answer):
-            element.correct(answer, False)
-            score += 1
-        else:
-            element.incorrect(False)
-
-    calculateScore(score, max_score)
+    kanaQuiz("ひらがな", hiragana)
 
 def katakanaQuiz():
-    """
-    This function is for the Katakana Quiz. You'll only be tested on
-    Katakana characters. You'll either need to enter the Katakana
-    Character or write the Romaji (romanized version, i.e. ダ = da).
-
-    :return: None
-    """
-    print("Katakana Quiz (カタカナ)\n")
-    hasJapaneseKeyboard(False)
-
     katakana = [ Question("ア", "a"), Question("イ", "i"), Question("ウ", "u"), Question("エ", "e"), Question("オ", "o"),
                     Question("カ", "ka"), Question("キ", "ki"), Question("ク", "ku"), Question("ケ", "ke"), Question("コ", "ko"),
                     Question("ガ", "ga"), Question("ギ", "gi"), Question("グ", "gu"), Question("ゲ", "ge"), Question("ゴ", "go"),
                     Question("サ", "sa"), Question("シ", "shi"), Question("ス", "su"), Question("セ", "se"), Question("ソ", "so"),
                     Question("ザ", "za"), Question("ジ", "ji"), Question("ズ", "zu"), Question("ゼ", "ze"), Question("ゾ", "zo"),
                     Question("タ", "ta"), Question("チ", "chi"), Question("ツ", "tsu"), Question("テ", "te"), Question("ト", "to"),
-                    Question("ダ", "da"), Question("ヂ", "ji"), Question("ヅ", "zu"), Question("デ", "de"), Question("ド", "do"),
+                    Question("ダ", "da"), Question("ヂ", "ji"), Question("ヅ", "zu", "du"), Question("デ", "de"), Question("ド", "do"),
                     Question("ナ", "na"), Question("ニ", "ni"), Question("ヌ", "nu"), Question("ネ", "ne"), Question("ノ", "no"),
                     Question("ハ", "ha"), Question("ヒ", "hi"), Question("フ", "fu", "hu"), Question("ヘ", "he"), Question("ホ", "ho"),
                     Question("バ", "ba"), Question("ビ", "bi"), Question("ブ", "bu"), Question("べ", "be"), Question("ボ", "bo"),
@@ -405,15 +345,26 @@ def katakanaQuiz():
                     Question("ラ", "ra"), Question("リ", "ri"), Question("ル", "ru"), Question("レ", "re"), Question("ロ", "ro"),
                     Question("ワ", "wa"), Question("ヲ", "wo"), 
                     Question("ン", "n") ]
+    kanaQuiz("かたかな", katakana)
 
-    input("\nThe quiz is about to begin! Press any key to start...")
+def kanaQuiz(name, kana):
+    """
+    This function is for kana Quizzes. You'll only be tested on
+    Katakana characters. You'll either need to enter the Japanese
+    Character or write the Romaji (romanized version, i.e. ダ = da).
+
+    :return: None
+    """
+    print(Fore.BLUE + name + "クイズ。" + Fore.RESET)
+
     score = 0
-    max_score = len(katakana)
+    max_score = len(kana)
 
-    random.shuffle(katakana)
-    for element in katakana:
-        print("\n" + element.question)
-        answer = input("What character is this?: ")
+    random.shuffle(kana)
+    for element in kana:
+        print()
+        print(element.question, end='')
+        answer = input(": ")
 
         if (answer.lower() == element.correctAnswer.lower()) or element.isAlternate(answer):
             element.correct(answer, False)

@@ -1,3 +1,4 @@
+#!/bin/python3
 """
 Japanese Quiz v1.0
 
