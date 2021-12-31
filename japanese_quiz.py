@@ -370,19 +370,24 @@ def kanaQuiz(name, kana):
     score = 0
     max_score = len(kana)
 
-    random.shuffle(kana)
-    for element in kana:
-        print()
-        print(element.question, end='')
-        answer = input(": ")
+    while kana:
+        random.shuffle(kana)
+        for i in reversed(range(len(kana))):
+            element = kana[i]
+            print()
+            print(element.question, end='')
+            answer = input(": ")
 
-        if (answer.lower() == element.correctAnswer.lower()) or element.isAlternate(answer):
-            element.correct(answer, False)
-            score += 1
-        else:
-            element.incorrect(False)
+            if (answer.lower() == element.correctAnswer.lower()) or element.isAlternate(answer):
+                element.correct(answer, False)
+                kana.pop(i)
+                score += 1
+            else:
+                element.incorrect(False)
 
-    calculateScore(score, max_score)
+        if max_score:
+            calculateScore(score, max_score)
+            max_score = 0
 
 def kanjiQuizPrompt(quizList):
     """
