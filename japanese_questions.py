@@ -40,7 +40,7 @@ class Question:
         :param englishQuestion: Whether or an English question was given.
         :return: None
         """
-        print(Fore.GREEN + "そのとおりです。" + Fore.RESET)
+        print(f"{Fore.GREEN}そのとおりです。{Fore.RESET}")
 
         # There is no need to display the Kanji if the Kanji Quiz is active.
         if englishQuestion:
@@ -56,8 +56,8 @@ class Question:
         :param englishQuestion: Boolean value (Weather or not the question was given in English).
         :return: None
         """
-        print(Fore.RED + "Incorrect! :(" + Fore.RESET)
-        print("The correct answer was {}".format(self.correctAnswer))
+        print(f"{Fore.RED}Incorrect! :({Fore.RESET}")
+        print(f"The correct answer was {self.correctAnswer}")
 
         if self.alternateAnswers is not None:
             if type(self.alternateAnswers) == list:
@@ -175,7 +175,7 @@ class KanjiQuestion:
         :param self: The question object.
         :return: None
         """
-        print(Fore.GREEN + "そのとおりです。" + Fore.RESET)
+        print(f"{Fore.GREEN}そのとおりです。{Fore.RESET}")
 
     def halfCorrect(self, wrong):
         """
@@ -222,7 +222,8 @@ def calculateScore(score, max_score):
     :param max_score: The max score for the quiz.
     :return: None
     """
-    print(f"\n[!] {score}/ {max_score} 正解しました。")
+    print()
+    print(f"{Fore.BLUE}[!] {score}/ {max_score} 正解しました。{Fore.RESET}")
     input("[!] 何かキーを押すと続行します。")
 
 def isHiragana(str):
@@ -355,7 +356,7 @@ def kanaQuiz(name, kana):
 
     :return: None
     """
-    print(Fore.BLUE + name + "クイズ。" + Fore.RESET)
+    print(f"{Fore.BLUE}{name}クイズ。{Fore.RESET}")
 
     score = 0
     max_score = len(kana)

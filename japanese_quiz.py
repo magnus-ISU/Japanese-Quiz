@@ -23,20 +23,16 @@ import japanese_questions   # Japanese questions
 if __name__ == "__main__":
     while True:
         print("Japanese Quiz (日本語クイズ) v1.0")
-        print("[!] This Script/Quiz is still in development!")
-        print("[!] If you find any bugs or errors report them on the Github Page.")
+        print("[!] 問題がありますか？ https://github.com/magnus-ISU/Japanese-Quiz")
 
-        print("\n\n[!] Quiz Options:")
-        print("\t1 Hiragana Quiz (ひらがな)")
-        print("\t2 Katakana Quiz (カタカナ)")
-        print("\t3 Kanji Quiz (漢字)")
-        print("\t4 Vocab Quizzes (MLJP201)")
-        print("\t5 Hard Vocab")
-        print("\n\t-1 To Exit")
+        print("\n[!] クイズオプション:")
+        print("\tー ひらがな")
+        print("\t二 カタカナ")
+        print("\t三 漢字")
+        print("\t四 Vocab Quizzes (MLJP201)")
+        #print("\t五 Hard Vocab")
         
-        print("\n[!] Please note that although a Japanese keyboard isn't required, it is strongly recommended!")
-        print("[!] Please also make sure you can see the Japanese characters above!")
-        quizType = input("[+] What quiz would you like to take?: ")
+        quizType = input("[+] どのクイズを受験しますか？ ")
 
         if quizType == "-1":
             break
@@ -54,5 +50,3 @@ if __name__ == "__main__":
             #japanese_questions.hardVocabQuiz()
         else:
             print("[!] This quiz has not been implemented yet.\n\n")
-
-    print("\n\n[!] The program has concluded.")
