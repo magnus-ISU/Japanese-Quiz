@@ -697,7 +697,9 @@ if __name__ == "__main__":
 
         quizType = input("[+] どのクイズを受験しますか？ ")
 
-        if quizType == "1" or quizType == "１":
+        if quizType == "":
+            break
+        elif quizType == "1" or quizType == "１":
             hiraganaQuiz()
         elif quizType == "2" or quizType == "２":
             katakanaQuiz()
